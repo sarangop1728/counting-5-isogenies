@@ -54,7 +54,7 @@ Factorization(Denominator(cs[5]));
 //     <$.1^2 + 22*$.1 + 125, 1>
 // ]
 
-u := (t^2 + 4*t -1)*(t^2 + 22*t + 125);
+u := (t^2 + 4*t -1)*(t^2 + 22*t + 125)/(t^2 + 10*t + 5);
 E := EllipticCurve([cs[4]*u^2, cs[5]*u^3]); // has coefficients in Q[t]
 P<T> := PolynomialRing(Rationals());
 cs := Coefficients(E);
@@ -72,7 +72,7 @@ f := P!cs[4];
 Factorization(f);
 // f =
 // [
-//     <T^2 + 10*T + 5, 3>,
+//     <T^2 + 10*T + 5, 1>,
 //     <T^2 + 22*T + 125, 1>
 // ]
 g := P!cs[5];
@@ -80,7 +80,6 @@ Factorization(g);
 // g =
 // [
 //     <T^2 + 4*T - 1, 1>,
-//     <T^2 + 10*T + 5, 3>,
 //     <T^2 + 22*T + 125, 2>
 // ]
 phi5facts := Factorization(DivisionPolynomial(E,5));
