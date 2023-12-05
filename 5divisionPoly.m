@@ -15,4 +15,4 @@ psi5 := DivisionPolynomial(E,5);
 psi5facts := Factorization(psi5);
 
 psi5facts[1];
-// T^2 - 60*T - 18954/5*a + (-15750*c^2 + 7128*b)/5
+// T^2 - 60*c*T - 18954/5*a + (-15750*c^2 + 7128*b)/5
