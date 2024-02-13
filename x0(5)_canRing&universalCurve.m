@@ -70,17 +70,11 @@ E := EllipticCurve([cs[4]*v^2, cs[5]*v^3]); // has coefficients in Q[t]
 cs := Coefficients(E);
 f := P!cs[4];
 Factorization(f);
-// f =
-// [
-//     <T^2 + 10*T + 5, 1>,
-//     <T^2 + 22*T + 125, 1>
-// ]
+// f = -3(T^2 + 10*T + 5)(T^2 + 22*T + 125) : degree 4
+
 g := P!cs[5];
 Factorization(g);
-// g =
-// [
-//     <T^2 + 4*T - 1, 1>,
-//     <T^2 + 22*T + 125, 2>
-// ]
+// g = 2(T^2 + 4*T - 1)(T^2 + 22*T + 125)^2 : degree 6
+
 phi5facts := Factorization(DivisionPolynomial(E,5));
 phi5facts[1];
