@@ -1,0 +1,1223 @@
+\documentclass[12pt]{amsart}
+
+% PREAMBLE
+\usepackage{mathscinet}
+\usepackage[utf8]{inputenc} % encoding
+\usepackage[dvipsnames, table]{xcolor} % colors
+\usepackage{color} % colors
+\usepackage{tikz} % code figures
+\usepackage{tikz-cd} % commutative diagrams
+\usetikzlibrary{matrix,arrows,decorations.pathmorphing} % special decorations for tikzmain.tex
+\usepackage{amssymb, amsmath, mathtools, amsfonts, amsthm} % ams    
+\usepackage{stmaryrd}
+\usepackage{thmtools,
+  thm-restate} % restate theorems and other options
+\declaretheorem[numberwithin=section, name = Theorem]{mainthm}
+% \usepackage{pdfpages} % inclusion of external PDF documents in LATEX
+\usepackage{graphicx} % optional arguments for \includegraphics
+\usepackage{fullpage} % sets margins to be either 1 inch or 1.5 cm
+\usepackage{caption} % customize the captions in floating environments
+\usepackage{latexsym} % for \lhd and \unlhd (and others)
+\usepackage{enumitem} % customize items in lists
+\usepackage[toc,page]{appendix} % formatting the titles of appendices
+\usepackage{multicol} % typeset text in multiple columns
+\usepackage{hyperref}
+\definecolor{headercolor}{RGB}{255,255,240}
+\definecolor{mylinkcolor}{RGB}{0,0,255}
+\definecolor{mycitecolor}{RGB}{169,169,169}
+\definecolor{myurlcolor}{RGB}{255,20,147}
+% see https://latexcolor.com/ for more options
+\definecolor{santicolor}{rgb}{0.0, 0.8, 0.6}
+\hypersetup{colorlinks=true,
+urlcolor=myurlcolor,
+citecolor=mycitecolor,
+linkcolor=mylinkcolor,
+linktoc=page,
+breaklinks=true}
+\usepackage{url} 
+\urlstyle{same}
+
+\usepackage{cleveref}
+% \usepackage{chngcntr}
+% \counterwithin{figure}{section} %CHANGES FIGURE COUNTERS TO SECTION
+% \counterwithin{table}{section}
+
+\usepackage[numbers]{natbib} % bibliography style
+\usepackage{setspace}
+\setlength{\bibsep}{0.0pt} % compact bibliography
+\usepackage{indentfirst} % to indent the first paragraph of a section
+\usepackage{listings} % source-code printing
+\usepackage[mathscr]{eucal} % nice caligraphy for sheaves and categories
+\usepackage{manfnt} % street sign
+\usepackage{longtable} % tables that continue on the next page
+\usepackage{colonequals} % correct way to write :=
+\usepackage{nicefrac} % typeset in-line fractions in a "nice" way. \nicefrac[\mathcal]{numerator}{denominator}
+\usepackage{wrapfig}
+% \usepackage{draftwatermark} % watermarks for drafts
+% \SetWatermarkText{DRAFT} \SetWatermarkScale{1}
+%\usepackage{bbold} % to use \mathbb{1}
+\usepackage{tkz-euclide} % euclidean geometry
+\usepackage{caption} % figures and subfigures
+\usepackage{subcaption} % figures and subfigures
+\usepackage{float}
+\usepackage{soul} % to strikethrough words: \st{}
+\usepackage{pgfplots}
+\pgfplotsset{width=10cm,compat=1.9} 
+
+% \usepackage{mathpazo}
+% \usepackage{lineno} %numering lines
+% \linenumbers
+
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{ backgroundcolor=\color{backcolour},   commentstyle=\color
+ {codegreen}, keywordstyle=\color{magenta}, numberstyle=\tiny\color{codegray}, stringstyle=\color
+ {codepurple}, basicstyle=\ttfamily\footnotesize, breakatwhitespace=false,         breaklines=true,
+ captionpos=b,                    keepspaces=true,                 numbers=left, numbersep=5pt,
+ showspaces=false,                showstringspaces=false, showtabs=false, tabsize=2 }
+
+\lstset{style=mystyle, language=[Objective]C}
+
+
+% THEOREM ENVIRONMENTS.
+
+\newcounter{counter}[section] % global counter / increases with subsection.
+\renewcommand{\thecounter}{\thesection.\arabic{counter}}
+
+
+\newenvironment{warning}{\vspace{.5em} \textdbend \textbf{Warning.}}{
+  \vspace*{1em}}
+\numberwithin{equation}{section} % numbering according to section
+\newtheorem{thmx}{Theorem}
+\renewcommand{\thethmx}{\Alph{thmx}} % alphabetic numbering
+\newtheorem{corox}{Corollary} \renewcommand{\thecorox}{\Alph{corox}}
+
+% \numberwithin{equation}{subsection} % numbering according to subsection
+\newtheorem{theorem}[counter]{Theorem}
+\newtheorem{lemma}[counter]{Lemma}
+\newtheorem{corollary}[counter]{Corollary}
+\newtheorem{conjecture}[counter]{Conjecture}
+\newtheorem{proposition}[counter]{Proposition}
+\newtheorem{question}[counter]{Question}
+
+
+\theoremstyle{definition} \newtheorem{definition}[counter]{Definition}
+\newtheorem{example}[counter]{Example} % examples
+\newtheorem{observations}[counter]{Observations}
+\newtheorem*{answer}{Answer} \newtheorem*{fact}{N.B}
+\newtheorem{assume}[counter]{Assumption} \newtheorem*{claim}{Claim}
+\newtheorem*{List}{\underline{List}} \newtheorem*{apply}{Application}
+
+
+\theoremstyle{remark} \newtheorem{nonexam}[counter]{Non-example}
+\newtheorem*{notation}{Notation}
+\newtheorem{remark}[counter]{Remark}
+\newtheorem{remarks}[counter]{Remarks}
+
+
+
+
+% COMMAND SHORTCUTS.
+  
+% Random.
+\newcommand{\R}{\mathcal{R}} % region
+\newcommand{\RR}{\mathbb{R}} % for Real numbers
+\newcommand{\ZZ}{\mathbb{Z}} % for Integers
+\newcommand{\QQ}{\mathbb{Q}} % for Rationals
+\newcommand{\CC}{\mathbb{C}} % for Complex numbers
+\newcommand{\OO}{\mathscr{O}} % for ring of integers
+\renewcommand{\AA}{\mathbf{A}} % affine space
+\newcommand{\PP}{\mathbf{P}} % projective space
+\newcommand{\Qp}{\mathbf{Q}_p} % for p-adics
+\newcommand{\Qbar}{\bar{\QQ}} % for algebraic numbers
+\newcommand{\XX}{\mathscr{X}} % mathscr X
+\newcommand{\XOF}{\XX_0(5)} % stacky X0(5)
+\newcommand{\XOFt}{\XX_0^{tw}(5)} %rigidification of X0(5)
+\newcommand{\YY}{\mathscr{Y}} % mathscr Y
+\newcommand{\FF}{\mathscr{F}} % mathscr Y
+\newcommand{\GG}{\mathscr{G}} 
+\newcommand{\sW}{\mathscr{W}} 
+\newcommand{\sE}{\mathscr{E}} 
+\newcommand{\Fp}{\mathbf{F}_p} % field with p elements
+\newcommand{\Fq}{\mathbf{F}_q} % field with q elements
+\newcommand{\Pone}{\mathbf{P}^1} % for projective line
+\newcommand{\Aone}{\mathbf{A}^1} % affine line
+\newcommand{\degr}{\operatorname{deg }} % for degree
+\newcommand{\md}{\text{ mod }} % mod without parenthesis
+\newcommand{\inv}{^{-1}} % inverse
+\newcommand{\unit}{^{\times}} % unit groupo functor
+\newcommand{\dd}{\,\mathrm{d}} % "d" of differential
+\newcommand{\wt}[1]{\widetilde{#1}} % wide tilde
+\newcommand{\paren}[1]{\left( #1 \right)} % parenthesis
+\newcommand{\brk}[1]{\left\lbrace #1 \right\rbrace} % brackets
+\newcommand{\sqbrk}[1]{\left[ #1 \right]} % square brackets
+\newcommand{\abs}[1]{\left| #1 \right|} % absolute value
+\newcommand{\ceil}[1]{\lceil #1 \rceil} % ceiling funtion
+\newcommand{\ZmodnZ}[1]{\ZZ / #1 \ZZ} % Z/nZ
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor} % floor function
+\newcommand{\frob}{\mathrm{Frob}} % frobenius
+\newcommand{\G}[1][\QQ]{\mathrm{Gal}_{#1}} % absolute Galois group
+\newcommand{\pabs}[1]{\left| #1 \right|_p} % p-adic absolute value
+\newcommand{\ideal}[1]{\langle #1 \rangle} % ideal
+\newcommand{\cdef}[1]{\textsf{#1}} % highlight words in definitions
+\renewcommand{\Re}{\mathrm{Re}} % real part
+\renewcommand{\Im}{\mathrm{Im}} % imaginary part
+\newcommand\doublelong[2]{\mathbin{\xymatrix{{}\ar@<3pt>[r]^{#1}
+\ar@<-3pt>[r]_{#2}&}}} % command needed for rigidification
+\newcommand{\thickslash}{\mathbin{\!\!\pmb{\fatslash}}} % symbol for rigidification
+
+
+
+
+\newcommand{\ol}{\overline}
+% Mathmode.
+\newcommand{\mbb}[1]{\mathbb{#1}} % mathbb
+\newcommand{\mbf}[1]{\mathbf{#1}} % mathbf
+\newcommand{\msf}[1]{\mathsf{#1}} % mathsf
+\newcommand{\mscr}[1]{\mathscr{#1}} % mathscr
+\newcommand{\mst}{\text{ such that }} % "such that" text in mathmode
+\newcommand{\mwith}{\text{ with }} % "with" in mathmode
+\newcommand{\mand}{\text{ and }} % "and" in mathmode
+\newcommand{\mfor}{\text{ for }} % "for" in mathmode
+\newcommand{\mforall}{ \text{ for all }} % "for all" in mathmode
+\newcommand{\mof}{\text{ of }} % "of" in mathmode
+\newcommand{\mif}{\text{ if }} % "if" in mathmode
+\newcommand{\mby}{\text{ by }} % "by" in mathmode
+\newcommand{\mor}{\text{ or }} % "or" in mathmode
+\newcommand{\mto}{\text{ to }} % "to" in mathmode
+\newcommand{\motherwise}{\text{ otherwise }} % "otherwise" in mathmode
+
+% Groups.
+\newcommand{\GL}{\msf{GL}} % General Linear
+\newcommand{\SL}{\msf{SL}} % Special Linear
+\newcommand{\GSp}{\msf{GSp}} % General Simplectic
+\newcommand{\Sp}{\msf{Sp}} % Simplectic
+\newcommand{\UU}{\msf{U}} % Unitary
+\newcommand{\Gm}{\mathbb{G}_m} % Multiplicative
+\newcommand{\Magma}{\texttt{Magma}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\stkC}{\mathscr{C}} % Stacky C
+\newcommand{\stkP}{\mathscr{P}} % Stacky P
+
+
+
+
+% Remove weird space before "\left".
+\let\originalleft\left \let\originalright\right
+\renewcommand{\left}{\mathopen{}\mathclose\bgroup\originalleft}
+  \renewcommand{\right}{\aftergroup\egroup\originalright}
+
+% COMMENTS IN PDF.
+\newcommand{\sapedit}[1]{{\color{cyan} \sf #1}}
+\newcommand{\santi}[1]{{\color{cyan} \sf
+    $\spadesuit$ Santi: #1}}
+\newcommand{\margSAP}[1]{\normalsize{{\color{cyan}\footnote{\color{cyan}#1}}{\marginpar[{\color{cyan}\hfill\tiny\thefootnote$\rightarrow$}]{{\color{cyan}$\leftarrow$\tiny\thefootnote}}}}}
+\newcommand{\Santi}[1]{\margSAP{(Santiago) #1}}
+
+% COMMENTS IN PDF.
+\newcommand{\chanedit}[1]{{\color{teal} \sf #1}}
+\newcommand{\chan}[1]{{\color{teal} \sf
+    $\clubsuit\clubsuit\clubsuit$ Changho: [#1]}}
+\newcommand{\margCHAN}[1]{\normalsize{{\color{teal}\footnote{\color{teal}#1}}{\marginpar[{\color{teal}\hfill\tiny\thefootnote$\rightarrow$}]{{\color{teal}$\leftarrow$\tiny\thefootnote}}}}}
+\newcommand{\Changho}[1]{\margCHAN{(Changho) #1}}
+
+\definecolor{orchid}{rgb}{0.85, 0.44, 0.84}
+
+% COMMENTS IN PDF.
+\newcommand{\oanaedit}[1]{{\color{orchid} \sf #1}}
+\newcommand{\oana}[1]{{\color{orchid} \sf
+    $\clubsuit\clubsuit\clubsuit$ Oana: [#1]}}
+\newcommand{\margOANA}[1]{\normalsize{{\color{orchid}\footnote{\color{orchid}#1}}{\marginpar[{\color{orchid}\hfill\tiny\thefootnote$\rightarrow$}]{{\color{orchid}$\leftarrow$\tiny\thefootnote}}}}}
+\newcommand{\Oana}[1]{\margOANA{(Oana) #1}}
+
+% COMMENTS IN PDF. (Sun Woo)
+\newcommand{\sparkedit}[1]{{\color{olive} \sf #1}}
+\newcommand{\spark}[1]{{\color{olive} \sf
+    $\clubsuit\clubsuit\clubsuit$ Sun Woo: [#1]}}
+\newcommand{\margSPARK}[1]{\normalsize{{\color{olive}\footnote{\color{olive}#1}}{\marginpar[{\color{olive}\hfill\tiny\thefootnote$\rightarrow$}]{{\color{olive}$\leftarrow$\tiny\thefootnote}}}}}
+\newcommand{\Sunwoo}[1]{\margSPARK{(Sun Woo) #1}}
+
+% OPERATORS
+\DeclareMathOperator{\height}{Ht} % height
+\DeclareMathOperator{\len}{length} % length
+\DeclareMathOperator{\nrm}{N} % norm
+\DeclareMathOperator{\Nm}{Nm} % norm
+\DeclareMathOperator{\disc}{disc} % discriminant
+\DeclareMathOperator{\ord}{ord} % order
+\DeclareMathOperator{\car}{char} % characteristic
+\DeclareMathOperator{\Aut}{Aut} % automorphism
+\DeclareMathOperator{\Gal}{Gal} % galois
+\DeclareMathOperator{\id}{id} % identity
+\DeclareMathOperator{\Frac}{Frac} % fraction field
+\DeclareMathOperator{\splt}{Splt} % split
+\DeclareMathOperator{\Br}{Br} % Brauer group
+\DeclareMathOperator{\codim}{codim} % codimension
+\DeclareMathOperator{\SFab}{Stab} % stabilizer
+\DeclareMathOperator{\Tr}{Tr} % trace
+\DeclareMathOperator{\Hom}{Hom} % Hom set
+\DeclareMathOperator{\Mor}{Mor} % Morphism set
+\DeclareMathOperator{\rank}{rk} % rank
+\DeclareMathOperator{\img}{Im} % Image
+\DeclareMathOperator{\im}{im} % image
+\DeclareMathOperator{\Pic}{Pic} % Picard group
+\DeclareMathOperator{\Sylow}{Syl} % Sylow
+\DeclareMathOperator{\Jac}{Jac} % Jacobian
+\DeclareMathOperator{\Spec}{Spec} % Spec
+\DeclareMathOperator{\mSpec}{mSpec} % maximal Spec
+\DeclareMathOperator{\lcm}{lcm} % least common multiple
+\DeclareMathOperator{\sgn}{sgn} % sign
+\DeclareMathOperator{\Sym}{Sym} % symmetries
+\DeclareMathOperator{\coker}{coker} % cokernel
+\DeclareMathOperator{\Div}{Div} % Divisor group
+\DeclareMathOperator{\Proj}{Proj} % Proj
+\DeclareMathOperator{\supp}{supp} % support
+\DeclareMathOperator{\res}{res} % residue
+\DeclareMathOperator{\vol}{vol} % volume
+\DeclareMathOperator{\Span}{Span} % span
+\DeclareMathOperator{\ev}{ev} % evaluation map
+\DeclareMathOperator{\dR}{dR} % de Rham
+\DeclareMathOperator{\trdeg}{tr.deg} % transcendence degree
+\DeclareMathOperator{\Res}{Res} % Residue
+\DeclareMathOperator{\Log}{Log} % Logarithm
+\DeclareMathOperator{\sheafHom}{\mathscr{H}\text{\kern -1pt
+    {om}}} % Sheaf Hom
+\DeclareMathOperator{\sProj}{\mathscr{P}\text{\kern -1pt
+    {roj}}} % Sheaf Hom
+    
+\DeclareMathOperator{\mind}{md} % minimality defect
+\DeclareMathOperator{\twmind}{tmd} % twist minimality defect
+\DeclareMathOperator{\Ht}{Ht} % height
+\DeclareMathOperator{\twht}{twHt} % twist height
+\DeclareMathOperator{\twerr}{twerr} % twist error
+
+
+
+
+% OPENING
+\title{Counting minimal integral points on $x^2+y^2 = z^4$ and 5-isogenies of elliptic curves over the rationals}
+
+
+\author{Santiago Arango-Piñeros} \address{Department of Mathematics,
+  Emory University, Atlanta, GA 30322, USA}
+\email{santiago.arango@emory.edu}
+\urladdr{\url{https://sarangop1728.github.io/}}
+
+\author{Changho Han}
+\address{Pure Mathematics, University of Waterloo, Waterloo, ON N2L 3G1, Canada}
+\email{changho.han@uwaterloo.ca}
+\urladdr{\url{https://hanchangho.github.io/}}
+
+\author{Oana Padurariu} \address{Department of Mathematics and Statistics,
+  Boston University}
+\email{oana.adascalitei@yahoo.com}
+\urladdr{\url{https://sites.google.com/view/oana-padurariu/home}}
+\author{Sun Woo Park} \address{Department of Mathematics, University of Wisconsin-Madison, Madison, WI 53703, USA}
+\email{spark483@wisc.edu}
+\urladdr{\url{https://sites.google.com/wisc.edu/spark483}}
+
+\begin{document}
+
+\begin{abstract}
+  We show that elliptic curves over the rationals equiped with a
+  $5$-isogeny can be parametrized by minimal integral solutions to the
+  Fermat equation $x^2 + y^2 = z^4$ . We use this parametrization to
+  prove that the number of $5$-isogenies with naive height bounded by
+  $T$ is $\sim C\cdot T^{1/6}(\log T)^2$ for some explicitly
+  computable constant $C>0$. This completes the asymptotic count of
+  rational points on the genus zero modular curves $X_0(N)$.
+\end{abstract}
+
+\maketitle
+
+
+\section{Introduction}
+
+\section{Analytic ingredients}\label{sec:analytic-ingredients}
+\subsection{Tauberian theorems}\label{sec:tauberian-theorems} Estimates of the partial sums of a Dirichlet series can be obtained from its analytic properties via Tauberian theory. See Theorem 1.1 and Remark 1 in \cite{Murty2024} for a complete proof of the following result.
+
+\begin{theorem}
+    \label{thm:tauberian1}
+    Let $G(s) = \sum_{n=1}^\infty g(n)n^{-s}$ be a Dirichlet series with
+    non-negative coefficients, and suppose that $G(s) = \zeta(s)^kh(s)$ for
+    some positive integer $k$, and $h(s)$ a Dirichlet series absolutely
+    convergent in $\Re(s) \geq 1$, with $h(1)\neq 0$. Then, as $X \to \infty$,
+    \begin{equation*}
+        \sum_{n\leq X} g(n) = \dfrac{g_{1}}{(k-1)!}X(\log X)^{k-1} + O(X(\log X)^{k-2}),
+    \end{equation*}
+    where $g_{1}$ is the residue of $G(s)$ at $s = 1$. \\
+    Furthermore, if $G(s)$ has Laurent series expansion
+    \begin{equation*}
+        G(s+1) = \dfrac{g_{k}}{s^k} + \dfrac{g_{k-1}}{s^{k-1}} + \cdots + g_0 + O_m(|s|^m),
+    \end{equation*}
+    as $s \to 0^+$, for some $g_i \in \CC$ and $m \in \ZZ_{>0}$, then
+    \begin{equation*}
+        \sum_{n\leq X} g(n) = X\sum_{j = 1}^k
+        \dfrac{\lambda_{k-j}}{(k-j)!}(\log X)^{k-j}
+        + O_m\left( \dfrac{X}{(\log X)^m}\right),
+    \end{equation*}
+    where 
+    \begin{equation*}
+        \lambda_{k-j} = \sum_{i=0}^{j-1}(-1)^{j-1-i}g_{k-i}.
+    \end{equation*}
+\end{theorem}
+
+A better control of the function $h(s) = G(s)/\zeta(s)^k$ can yield better
+estimates on the error term. The following result is a special case of Théorème
+A.1 in \cite{CL&T01}. Recall that a complex function $F(s)$ is said to be of
+\cdef{finite order} on a half-plane $\Re(s) > r$ if there exists a constant
+$\kappa$ such that
+    \begin{equation}
+        \label{eq:finite-order}
+        |F(s)| = O((1+\Im(s))^\kappa),
+    \end{equation}
+for $\Re(s) > r$. 
+
+\begin{theorem}
+    \label{thm:tauberian2}
+    Assume the hypothesis of \Cref{thm:tauberian1}, and assume that the
+    follwoing conditions are met:
+    \begin{enumerate}[label=(\roman*)]
+    \item There exists some $1 > \delta > 0$ such that $h(s)$ admits a
+      holomorphic continuation to the half-plane $\Re(s) > 1 - \delta > 0$.
+        \item The function $G(s)(s-1)^k/s^{k}$ is of finite order in $\Re(s) > 1-\delta$.
+    \end{enumerate}
+    Then, for every $\varepsilon >0$, 
+    \begin{equation*}
+      \sum_{n\leq X} g(n) =
+      X\sum_{j = 1}^k \dfrac{\lambda_{k-j}}{(k-j)!}(\log X)^{k-j}
+      + O_\varepsilon\left(X^{1-\delta + \varepsilon}\right),
+    \end{equation*}
+    as $X \to \infty$.
+\end{theorem}
+
+\section{Counting twist-minimal integer points on $x^2 + y^2 = z^4$}
+\label{sec:counting-twist-min-sols}
+
+\begin{definition}
+  \label{def:fermat-triple}
+  Since in this article we are concerned with the generalized Fermat equation
+  of signature $(2,2,4)$, we will say that a triple of integers $(a,b,c)$ is a
+  \cdef{Fermat triple} if it satisfies the equation $x^2 + y^2 = z^4$.
+\end{definition}
+
+\begin{definition}[Weighted GCD, twist, and minimality]
+  \label{def:weighted-stuff}
+  Given a triple of positive integers $r,s,t$, the \cdef{$(r,s,t)$-weighted
+  greatest common divisor} of $(a,b,c)\in \ZZ^3$ is the greatest positive
+  integer $d$ such that $d^r\mid a$, $d^s \mid b$, and $d^t \mid c$. We say
+  that $(a_2,b_2,c_2)$ is an \cdef{$(r,s,t)$-twist} of $(a_1,b_1,c_1)$ if
+  there exists an integer $n \neq 0$ such that
+  $(a_2,b_2,c_2) = (n^ra_1,n^sb_1,n^tc_1)$. A triple of integers $(a,b,c)$ is
+  called \cdef{$(r,s,t)$-minimal} if the $(r,s,t)$-weighted common divisor of
+  $(a,b,c)$ is equal to one. Equivalently, if there is no prime $p$ such that
+  $a^r \equiv b^s \equiv c^t \equiv 0 \md p$.
+\end{definition}
+
+At the moment, we are primarly concerned with the weight $(r,s,t) = (2,2,1)$.
+This choice comes from the observation that given an integral solution
+$(a,b,c)$ to the generalized Fermat equation $x^2 + y^2 = z^4$, then the twist
+$(n^2a,n^2b,nc)$ yields a different one for any integer $n$. By factoring out
+the $(2,2,1)$-greatest common divisor of a solution, and twisting by $-1$ when
+$c <0$, we can arrive at a choice of a smallest solution.
+
+\begin{definition}[Twist-defect and twist-height]
+  An integer triple $(a,b,c)$ is
+  \cdef{twist-minimal} if the following conditions are satisfied:
+  \begin{itemize}
+   \item $a^2 + b^2 = c^4$,
+   \item $(a,b,c)$ is $(2,2,1)$-minimal, and
+   \item $c>0$.
+   \end{itemize}
+     The \cdef{twist minimality defect} of a triple $(a,b,c)$ is its
+  $(2,2,1)$-greatest common divisor, and it is denoted by $\twmind(a,b,c)$. By
+  definition, every integral solution $(a,b,c)$ of $x^2 + y^2 = z^4$ is a
+  $(2,2,1)$-twist of the twist-minimal solution $(a/e^2, b/e^2, |c|/e)$, where
+  $e = \twmind(a,b,c)$.
+
+  Define the \cdef{twist height} of a Fermat triple $(a,b,c)$ by
+  \begin{equation}
+    \label{eq:twist-height}
+    \twht(a,b,c) \colonequals \dfrac{|c|}{\twmind(a,b,c)}.
+  \end{equation}
+\end{definition}
+
+The main result of this section is the asymptotic count of twist minimal
+triples. For a real parameter $T > 0$, denote by $N_\FF(T)$ the number of twist
+minimal triples with twist height less than or equal to $T$. We will prove the
+following theorem.
+
+\begin{theorem}
+    \label{thm:FF-count}
+    There exist explicitly computable constants $f_1, f_2 > 0$ such that for
+    every $\epsilon > 0$, we have
+    $$N_{\FF}(T) = f_1 T(\log T) + f_2T + O_\epsilon(T^{1/2+\epsilon}),$$
+    as $T \to \infty$. Furthermore, the constant $f_1$ is given by 
+    \begin{equation*}
+      f_1 = \dfrac{\gamma_0\pi^2}{8}\prod_{p \, \equiv\, 3 \md 4}\paren{1-p^{-2}}^2
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2}+8p^{-3}-3p^{-4}},
+      \end{equation*}
+      where $\gamma_0$ is the Euler-Mascheroni constant.
+\end{theorem}
+
+Before diving into the proof, we record some observations about twist-minimal
+triples that will be used in the argument and later on in the article.
+
+\begin{lemma}[Characterization of twist-minimal triples]
+  \label{lemma:twist-min-triples}
+  Suppose that $(a,b,c)$ is a twist-minimal triple. Then, the
+  following are true.
+  \begin{enumerate}[label=(\alph*)]
+  \item $\gcd(a,b)$ is square free.
+  \item If $p \mid \gcd(a,b)$, then $p \mid c$.
+  \item If $p \mid c$, then $p \equiv 1 \md 4$.
+  \item $c \equiv 1 \md 4$.
+  \item $a$ and $b$ have distinct parity.
+  \item If $a = 0$, then $b^2 = c^2 = 1$.
+  \item If $b = 0$, then $a^2 = c^2 = 1$.
+  \end{enumerate}
+\end{lemma}
+\begin{proof}
+  \hfill
+  \begin{enumerate}[label=(\alph*)]
+  \item If $p^2$ divides both $a$ and $b$, then $p^4 \mid c^4$, which
+    implies that $c$ is divisible by $p$. This contradicts the
+    $(2,2,1)$-minimality of $(a,b,c)$.
+  \item It follows from $a^2 + b^2 = c^4$.
+  \item Suppose that $2$ divides $c$, and write $v = v_2(c) > 0$. Then,
+    $2^{4v} \mid a^2 + b^2 = (a+ib)(a-ib)$ and we have the equation of ideals
+    $\langle a+ib\rangle = \langle 1+i\rangle^{4v}\cdot J = \langle
+    2\rangle^{2v}\cdot J$ for some ideal $J \subset \ZZ[i]$. This shows that
+    $2^2$ divides $a$ and $b$, implying that $(a,b,c)$ is not $(2,2,1)$-minimal
+    at $p=2$, contradiction. If $p \equiv 3 \md 4$ and $p$ divides $c$, then
+    $p$ is prime in $\ZZ[i]$ and this implies that $p^{2}$ divides $a + ib$.
+    Thus, $p^2$ divides both $a$ and $b$, making it impossible for $(a,b,c)$ to
+    be twist-minimal at $p$.
+  \item Every prime factor of $c$ is $1 \md 4$, and $c > 0$.
+  \item It follows from $a^2 + b^2 \equiv 1 \md 4$.
+  \item If $a = 0$, then $a^2 = c^4$. This implies that $|a|$ is a
+    square, and if $p \mid a$, then $p^2 \mid a$ and $p \mid c$. The
+    $(2,2,1)$-minimality implies that $a$ has no prime divisors.
+  \item Same as above.
+  \end{enumerate}
+\end{proof}
+
+Define the \cdef{height zeta function} corresponding to \Cref{eq:twist-height}
+to be the Dirichlet series
+\begin{equation*}
+  F(s) \colonequals \sum_{c = 1}^\infty \dfrac{f(c)}{c^s},
+\end{equation*}
+where $f(c)$ is the \cdef{arithmetic height function} that counts the number of
+twist-minimal triples $(a',b',c')$ with $\twht(a',b',c') = c' = c$. The
+following lemma describes the function $f(c)$ in terms of the prime
+factorization of $c$. Recall that an arithmetic function $\phi \colon \ZZ_{>0}
+\to \CC$ is \cdef{multiplicative} if $\phi(nm) = \phi(n)\phi(m)$ for every
+relatively prime positive integers $n,m$. If moreover $\phi(nm)=\phi(n)\phi(m)$
+for every $n,m \in \ZZ_{>0}$, then $\phi$ is called \cdef{completely
+multiplicative}.
+
+
+\begin{lemma}
+  \label{lemma:arithmetic-height-fun-f}
+    The arithmetic height function $f(c)$ satisfies the following properties.
+    \begin{enumerate}
+        \item If $p \not\equiv 1 \md 4$, then $f(p^k) = 0$ for every positive integer $k$.
+        \item If $p \equiv 1 \md 4$, then $f(p^k) = 16$ for every positive integer $k$.
+        \item The arithmetic function $f(c)/4$ is multiplicative, but not
+          completely multiplicative.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    \hfill
+    \begin{enumerate}
+        \item Follows from \Cref{lemma:twist-min-triples}.
+        \item For such a prime $p$, write $p\ZZ[i] = \pi\cdot\overline{\pi}$
+          for the prime ideal factorization in the Gaussian ring. There are
+          four ideals $I \subset \ZZ[i]$ that are not divisible by
+          $\langle p \rangle^2 = \pi^2\cdot\overline{\pi}^2$ satisfying
+          $N(I) \colonequals \#(\ZZ[i]/I) = p^{4k}$; they are:
+        \begin{equation*}
+          \pi^{4k}, \overline{\pi}^{4k}, \pi^{4k-1}\cdot\overline{\pi},
+          \text{ and } \pi\cdot\overline{\pi}^{4k-1}.
+        \end{equation*}
+        Since there are four units in the principal ideal domain $\ZZ[i]$,
+        we see that $f(c)/4$ counts the number of integral ideals $I \subset
+        \ZZ[i]$ satisfying:
+        \begin{itemize}
+          \item $N(I) = c^4$, and
+          \item $\langle p \rangle^2$ does not divide $I$ for any rational prime $p$.
+        \end{itemize}
+        \item This follows directly from the characterization of $f(c)/4$ given
+          above, and the multiplicativity of the ideal norm.
+    \end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of {\Cref{thm:FF-count}}]
+    It follows from the multiplicativity of $f(c)/4$
+    (\Cref{lemma:arithmetic-height-fun-f}), and the calculation of prime power
+    values of $f$ (\Cref{lemma:twist-min-triples}), that the
+    height zeta function $F(s)$ has the following Euler product expansion:
+    \begin{align*}
+      F(s) = 4\sum_{c=1}^\infty \tfrac14 f(c)c^{-s} =
+      & \, 4\prod_{p}\paren{1 + \sum_{k=1}^\infty \tfrac14 f(p^k)p^{-ks} } \\
+    = & \, 4\prod_{p \, \equiv\, 1 \md 4}\paren{1 + \sum_{k=1}^\infty 4p^{-ks}}
+        = 4\prod_{p \, \equiv\, 1 \md 4}\paren{\dfrac{1+3p^{-s}}{1-p^{-s}}}.
+    \end{align*}
+    In particular, this calculation shows that $F(s)$ is absolutely convergent
+    in the half-plane $\Re(s) > 1$. We can manipulate this Euler product to obtain
+    \begin{equation*}
+      F(s) = 4 \prod_{p \, \equiv\, 1 \md 4} \paren{1-p^{-s}}^{-4}
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2s}+8p^{-3s}-3p^{-4s}}.
+    \end{equation*}
+    At this stage, we introduce the Dedekind zeta function $\zeta_{\QQ(i)}(s)$
+    of the Gaussian field $\QQ(i)$. If $\chi_4(n) = (-4 | n)$ is the
+    non-trivial Dirichlet character of modulus $4$, we have the well-known
+    identity $\zeta_{\QQ(i)}(s) = \zeta(s)L(s,\chi_4)$, where $\zeta(s)$ is
+    the Riemann zeta function, and $L(s,\chi_4)$ is the Dirichlet $L$-function
+    associated to $\chi_4(n)$.  We deduce the identity
+    \begin{equation}
+        \label{eq:F=xi.P}
+        F(s) = \zeta(s)^2P(s),
+    \end{equation}
+    where
+    \begin{equation*}
+      P(s) \colonequals 4L(s,\chi_4)^2\paren{1-2^{-s}}^2
+      \prod_{p \, \equiv\, 3 \md 4}\paren{1-p^{-2s}}^2
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2s}+8p^{-3s}-3p^{-4s}}.
+    \end{equation*}
+    From \Cref{eq:F=xi.P}, we see that $F(s)$ has a unique pole at $s = 1$
+    of order $2$, and admits a meromorphic continuation to the half-plane
+    $\Re(s) > 1/2$. Moreover, the residue of $F(s)$ at $s=1$ is
+    \begin{align*}
+      f_1 &= \Res_{s=1}(F(s)) = \Res_{s=1}(\zeta(s)^2)\cdot P(1) = 2\gamma_0P(1). \\
+      P(1) &= 4\cdot(\pi/4)^2\cdot(1/4)\cdot \prod_{p \, \equiv\, 3 \md 4}\paren{1-p^{-2}}^2
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2}+8p^{-3}-3p^{-4}}.
+    \end{align*}
+
+
+    At this point, we can apply \Cref{thm:tauberian1} and obtain:
+    \begin{equation*}
+        N_{\FF}(T) = f_1 T(\log T) + f_2T + O\left(\dfrac{T}{\log T}\right).
+      \end{equation*}
+      To improve this error term, we can use \Cref{thm:tauberian2} with $k = 2$
+      and $\delta = 1/2$ to conclude that for any $\epsilon > 0$,
+      \begin{equation*}
+        N_{\FF}(T) = f_1 T(\log T) + f_2T + O_\epsilon\left(T^{1/2 + \epsilon}\right).
+      \end{equation*}
+\end{proof}
+    
+
+\section{Counting minimal integer points on $x^2 + y^2 = z^4$}
+\label{sec:counting-min-sols}
+
+\begin{definition}
+  \label{def:minimal-triple}
+  We will say that a triple of integers $(a,b,c)$ is a
+  \cdef{minimal triple} if the following conditions are satisfied:
+  \begin{itemize}
+   \item $a^2 + b^2 = c^4$,
+   \item $(a,b,c)$ is $(4,4,2)$-minimal, and
+   \item $c\neq0$.
+  \end{itemize}
+  The \cdef{minimality defect} of a triple $(a,b,c)$ is its $(4,4,2)$-greatest
+  common divisor, and it is dfenoted by $\mind(a,b,c)$. By definition, every
+  integral solution $(a,b,c)$ of $x^2 + y^2 = z^4$ is a $(4,4,2)$-twist of the
+  twist-minimal solution $(a/d^4, b/d^4, c/d^2)$, where $d = \mind(a,b,c)$.
+\end{definition}
+
+The main result of this section is the asymptotic count of minimal triples. For
+a real parameter $T > 0$, denote by $N_\GG(T)$ the number of twist minimal
+triples with height less than or equal to $T$. We will prove the following
+theorem.
+
+\begin{theorem}
+    \label{thm:GG-count}
+    There exist explicitly computable constants $g_1, g_2, g_3 > 0$ such that for
+    every $\epsilon > 0$, we have
+    $$N_{\GG}(T) = g_1 T(\log T)^2 + g_2T(\log T) + g_3T + O_\epsilon(T^{1/2+\epsilon}),$$
+    as $T \to \infty$. Furthermore, the constant $g_1$ is given by
+    \begin{equation*}
+      g_1 = \tfrac{9}{4}(\gamma_0^2+\gamma_1)\prod_{p \, \equiv\, 3 \md 4}\paren{1-p^{-2}}^2
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2}+8p^{-3}-3p^{-4}}.
+      \end{equation*}
+      where $\gamma_0$ is the Euler-Mascheroni constant.
+\end{theorem}
+
+As before, we aim to understand the analytic properties of the correspondig
+\cdef{height zeta function}
+\begin{equation*}
+    G(s) \colonequals \sum_{n=1}^\infty \frac{g(n)}{n^{s}}, 
+\end{equation*}
+where $g(n)$ is the \cdef{arithmetic height function} that counts the number of
+minimal triples $(a,b,c)$ with $\Ht(a,b,c) = |c| = n$.
+
+Instead of directly analyzing the zeta function $G(s)$, we leverage our
+understanding of $F(s)$, in the spirit of \cite[Theorem 5.1.4]{MV22}.
+
+\begin{proof}[Proof of {\Cref{thm:GG-count}}]
+    For a positive integer $n$, let 
+    \begin{align*}
+        \FF_n &\colonequals \brk{(a,b,c) : \text{twist-minimal, with } |c| = c = n}, \\
+        \GG_n &\colonequals \brk{(a,b,c) : \text{minimal, with } |c| = n}
+    \end{align*}
+    be the level sets of points of height $n$, so that $f(n) = \#\FF_n$ and
+    $g(n) = \#\GG_n$. For every square-free $d \in \ZZ$, let
+    \begin{equation*}
+        g^{(d)}(n) \colonequals \#\brk{(a,b,c) \in \ZZ^3 : (d^2a, d^2b, dc) \in \GG_n}.
+    \end{equation*}
+    It follows from the definitions that
+    \begin{equation}
+        g^{(d)}(n) = 
+        \begin{cases}
+            2f(n/|d|), & \mif d \mid n, \\
+            0, & \mif d \nmid n.
+        \end{cases}
+    \end{equation}
+    Therefore,
+    \begin{align*}
+        g(n) = \sum_{\substack{d \in \ZZ \\ \square\text{-free}}} g^{(d)}(n) = 4\sum_{\substack{d > 0 \\ d \mid n}} \mu^2(d)f(n/d) = 4(\mu^2*f)(n).
+    \end{align*}
+    It follows that
+    $G(s) = 4\zeta(s)F(s)/\zeta(2s) = 4\zeta^3(s)P(s)/\zeta(2s)$, and applying
+    the Tauberian theorem once more gives the result. In particular, we have
+    that
+    \begin{align*}
+      g_1 &= \tfrac12 \Res_{s=1}(G(s)) \\
+          &= 2\Res_{s=1}(\zeta(s)^3)\cdot P(1)\cdot\tfrac{6}{\pi^2}\\
+          &= \tfrac{9}{4}(\gamma_0^2+\gamma_1)\prod_{p \, \equiv\, 3 \md 4}\paren{1-p^{-2}}^2
+      \prod_{p \, \equiv\, 1 \md 4}\paren{1 -6p^{-2}+8p^{-3}-3p^{-4}}.
+    \end{align*}
+\end{proof}
+    
+
+\section{Elliptic curves and $5$-isogenies}
+\label{sec:elliptic-curves-5isog}
+
+We use the notation established in \cite{MV22}. Let $E$ be an elliptic curve
+over $\QQ$. Then $E$ admits a short Weierstrass model $E_{A,B}\colon y^2 = x^3
++ Ax + B$ with $A,B \in \QQ$. Furthermore, two such models are isomorphic if
+their coefficients satisfy
+\begin{equation*}
+  (A', B') = (u^4A, u^6B) \text{ for some } u \in \QQ\unit.
+\end{equation*}
+It follows that we can choose a Weierstrass pair $(A,B) \in \ZZ^2$ to represent
+the $\QQ$-isomorphism class of $E$. The \cdef{height} of $(A,B)$ is
+$H(A,B) \colonequals \max(4|A|^3, 27|B|^2)$. The \cdef{minimality defect} of
+$(A,B)$, denoted $\mind(A,B)$, is the $(4,6)$-weighted common divisor of $A$
+and $B$, i.e., largest $d \in \ZZ_{>0}$ such that $d^4 \mid A$ and
+$d^6 \mid B$. Every elliptic curve $E$ defined over $\QQ$ with has a unique
+short Weierstrass model over, up to $\QQ$-isomorphism, with minimality defect
+$1$. We call this the \cdef{minimal model} of $E$, and it is given by
+\begin{equation}
+    \label{eq:minimal-model}
+    y^2 = x^3 + (A/d^4)x + B/d^6, \quad \text{ for } d = \mind(A,B),
+\end{equation}
+where $E_{A,B}$ is any short Weierstrass model for $E$. We call
+\Cref{eq:minimal-model} the \cdef{minimal model} of $E$.
+
+
+
+
+The \cdef{twist minimality defect} of
+$(A,B)$, denoted $\twmind(A,B)$, is the $(2,3)$-weighted common divisor of $A$
+and $B$, i.e., the largest $e \in \ZZ_{>0}$ such that $e^2 \mid A$ and
+$e^3 \mid B$.
+
+For any elliptic curve $E$ over $\QQ$ we choose a short Weierstrass model
+$E_{A,B}$ and define the \cdef{height} of (the isomorphism class of) $E$ to be
+\begin{equation}
+    \label{eq:height}
+    \height(E) = \height(A,B) \colonequals H(A,B)/\mind(A,B)^{12}.
+\end{equation}
+Similarly, the \cdef{twist height} of (the $\Qbar$-isomorphism class of) $E$ is
+\begin{equation}
+    \label{eq:twist-height}
+    \twht(E) = H(A,B)/\twmind(A,B)^{6}.
+\end{equation}
+For $j = 0, 1728$, we choose twist minimal models as follows:
+\begin{itemize}
+\item If $j(E) = 0$ ($A =0$), then we take $y^2 = x^3 + 1$ of \cdef{twist
+    height} $27$.
+\item If $j(E) = 1728$ ($B=0$), then we take $y^2 = x^3 + x$ of \cdef{twist
+    height} $4$.
+\end{itemize}
+Every elliptic curve $E$ defined over $\QQ$ has a unique model over $\QQ$, up
+to $\Qbar$-isomorphism, with twist minimality defect $1$ and $B > 0$. We call
+this the \cdef{twist minimal model} of $E$, and it is given by
+\begin{equation}
+    \label{eq:twist-minimal-model}
+    y^2 = x^3 + (A/e^2)x + |B|/e^3, \quad \text{ for } e = \twmind(A,B).
+\end{equation}
+
+The coarse space of $Y_0(5)$ is an affine open in $\Pone$, so the objects of
+interest are parametrized by it's coordinate $t \neq 0, \infty$.
+\begin{lemma} \label{lemma:X0(5)-parametrization} The set of isomorphism
+  classes of elliptic curves $E$ over $\QQ$ that admit a $5$-isogeny (defined
+  over $\QQ$) are precisely those of the form
+  $E_5^{(e)}\colon y^2 = x^3 + e^2f(t)x + e^3g(t)$ for some $e \in \ZZ$ square
+  free and $t\in \QQ\unit$, where
+    \begin{align}
+    \label{eq:f}
+        f(t) &= -3(t^2 + 10t + 5)(t^2 + 22t + 125), \\
+    \label{eq:g}
+        g(t) &= 2(t^2 + 4t - 1)(t^2 + 22t + 125)^2.
+    \end{align}
+\end{lemma}
+\begin{proof}
+  Elliptic curves over $\QQ$ admitting a $5$-isogeny have $j$-invariant of the
+  form (see \cite[Page 1247]{halberstadt21})
+    \begin{equation}
+        \label{eq:j}
+        j = (t^2 + 10t + 5)^3 / t.
+    \end{equation}
+    From this we get a minimal Weierstrass equation
+    $E_5\colon y^2 = x^3 + f(t)x + g(t)$ with $f(t), g(t) \in \ZZ[t]$ as in the
+    assertion. A calculation shows that $\disc(E_5) = 12^6t(t^2 + 10t +5)^3$,
+    so that the only values of $t\in \QQ$ for which $E_5$ specializes to a
+    singular cubic curve is $t=0$. For future reference, let
+    \begin{equation}
+        \label{eq:h}
+        h(t) \colonequals t^2 + 22t + 125.
+    \end{equation}
+    This polynomial is the greatest common divisor between $f(t)$ and $g(t)$.
+    The $5$-division polynomial of the curve $E_2$ has an irreducible quadratic
+    factor:
+    \begin{equation}
+        x^2 -2h(t)x +(t^2 + 22t + 89)h(t),
+    \end{equation}
+    verifying the claim that the curves $E_5^{(e)}(t)$ admit a five isogeny.
+\end{proof}
+
+
+
+\section{Minimal triples and $5$-isogenies}
+\label{sec:triples-and-5isog}
+
+Given a triple of integers $(a,b,c)$ satisfying the equation $x^2 +
+y^2 = z^4$, we define a short Weierstrass equation
+\begin{equation}
+  \label{eq:Eabc}
+  y^2 = x^3 + A(a,b,c)x + B(a,b,c),
+\end{equation}
+where
+\begin{align}
+  \label{eq:A}
+  A(a,b,c) &\colonequals -6(123a + 114b + 125c^2) \\
+  &= -(2\cdot 3^2\cdot 41)a - (2^2\cdot 3^2 \cdot 19)b - (2\cdot 3\cdot 5^3)c^2, \notag\\
+  \label{eq:B}
+  B(a,b,c) &\colonequals 8c(2502a + 261b + 2500c^2) \\
+  &= (2^4\cdot 3^2\cdot 139)ac + (2^3\cdot 3^2\cdot 29)bc + (2^5\cdot 5^4)c^3. \notag
+\end{align}
+The discriminant of this equation is $\Delta(a,b,c) \colonequals
+-16(27A(a,b,c)^3 + 4B(a,b,c)^2)$. When this quantity is not zero,
+\Cref{eq:Eabc} defines an elliptic curve $E_{a,b,c}$ over $\QQ$.
+
+\begin{theorem}
+  \label{thm:Eabc}
+  Suppose $(a,b,c)$ is an integer solution to $x^2 + y^2 = z^4$ that is not
+  $(2,2,1)$-equivalent to $(-1,0,1)$ or $(-585,220,25)$. Then,
+  \begin{enumerate}[label=(\alph*)]
+      \item $\Delta(a,b,c)
+  \neq 0$ and $E_{a,b,c}$ is an elliptic curve over $\QQ$
+  admitting a $5$-isogeny $\phi_{a,b,c}$.
+      \item Two triples are $(2,2,1)$-equivalent by $0 \neq d\in \ZZ$, say
+  $(a_2,b_2,c_2) = (d^2a_1,d^2b_1,dc_1)$, if and only if the corresponding
+  pairs $(E_1,\phi_1)$ and $(E_2,\phi_2)$ are $\QQ(\sqrt{d})$-twists.
+      \item Every pair $(E,\phi) \in Y_0(5)(\QQ)$ is $\QQ$-isomorphic to
+  $(E_{a,b,c},\phi_{a,b,c})$ for a unique minimal triple $(a,b,c)$.
+      \item The set of quadratic twists of a pair $(E_{a,b,c},\phi_{a,b,c}) \in
+        Y_0(5)(\QQ)$ corresponds to the set of $(2,2,1)$-twists of the minimal
+        triple $(a,b,c)$.
+  \end{enumerate}
+\end{theorem}
+
+\section{Counting $5$-isogenies up to $\Qbar$-twist}
+\label{sec:counting-5-isogenies-twist}
+
+\begin{lemma}
+  \label{lemma:p-mid-c-and-pp-mid-A}
+  Let $(a,b,c)$ be a twist-minimal triple. If a prime $p$ satisfies
+  \begin{equation*}
+    p \mid c,\quad \mand \quad p^2 \mid A(a,b,c),
+  \end{equation*}
+  then $p=5$.
+\end{lemma}
+\begin{proof}
+  We know from \Cref{lemma:twist-min-triples} that every prime $p$ dividing $c$
+  satisfies $p \equiv 1 \md 4$, so it is not possible to have $p = 2,3$
+  dividing $c$. Thus, we already know that $p \neq 2,3$.
+
+  Assume that $p \neq 5$. It follows from reducing \Cref{eq:A} modulo $p^2$
+  that $123a \equiv -114b \md p^2$. This implies that
+  \begin{align*}
+    (123c^2)^2 &= (123a)^2 + (123b)^2 \\
+               &\equiv (-114b)^2 + (123b)^2 \md p^2 \\
+               &\equiv (114^2 + 123^2)b^2 \md p^2 \\
+               &\equiv 3^2\cdot 5^5\cdot b^2 \equiv 0 \md p^2 .
+  \end{align*}
+
+It follows that $p \mid b$, and therefore $p \mid a$ as well. Let $a'
+\colonequals a/p$, $b' \colonequals b/p$ and $c'\colonequals c/p$. We have that
+$(a')^2 + (b')^2 = p^2(c')^4$ and $123a' + 114b' + 125p(c')^2 \equiv 0 \md p$.
+Once more, it follows that $123a' \equiv -114b' \md p$, and
+  \begin{align*}
+    (123a')^2 + (123b')^2 &\equiv (114^2 + 123^2)(b')^2 \md p \\
+                       &\equiv 3^2\cdot 5^5\cdot (b')^2 \equiv 0 \md p .
+  \end{align*}
+  It follows that $p \mid b'$, and therefore $p \mid a'$ as well. This
+  contradicts the twist-minimality of the triple $(a,b,c)$.
+
+  To see that the case $p=5$ indeed occurs, one can take $(a,b,c) = (-527,
+  -336, 25)$. This triple is twist-minimal, since $\gcd(a,b)=1$, and $A(a,b,c)
+  = 2^4\cdot 3 \cdot 5^5$.
+\end{proof}
+
+\begin{definition}
+  Define the \cdef{twist error} of a Fermat triple $(a,b,c)$, denoted by $\twerr(a,b,c)$, to be the twist
+  minimality defect of the elliptic curve $E_{a,b,c}$. In other words,
+  \begin{equation*}
+    \twerr(a,b,c) \colonequals \twmind(A(a,b,c),B(a,b,c)).
+  \end{equation*}
+\end{definition}
+
+\begin{lemma}
+  Let $(a,b,c)$ be a twist-minimal triple. If $p$ is a prime divisor of
+  $\twerr(a,b,c)$, then $p \in \brk{2,5}$.
+\end{lemma}
+\begin{proof}
+  By definition, $p \mid \twerr(a,b,c)$ if and only if
+  $p^2 \mid A \colonequals A(a,b,c)$ and $p^3 \mid B \colonequals B(a,b,c)$. If we had that $p$ also
+  divides $c$, then \Cref{lemma:p-mid-c-and-pp-mid-A} implies that
+  $p = 5$. For this reason, we assume that $p$ does not divide $c$.
+
+  We use the equations $A \equiv 0 \md p^2$ and $B \equiv 0 \md p^2$ to find
+  congruence relations between $a$ and $b$ modulo $p^2$. We find an integer
+  linear combinations of $cA$ and $B$ that allow us to cancel the terms with
+  $a$ or $b$ in them, obtaining:
+  \begin{align*}
+    1112cA + 41B &= -(14000c^3 + 675000bc) = -2^35^3c(14c^2 + 675b) \equiv 0 \md
+    p^2, \\
+    58ca + 19B &= 337500ac + 336500c^3 = 2^25^3c(673c^2+675a) \equiv 0 \md p^2.
+  \end{align*}
+  If $p \neq \brk{2,5}$, this implies that $(14c^2 + 675b) \equiv 0 \md
+    p^2$ and $(673c^2+675a) \equiv 0 \md p^2$. But in this case, we can reduce
+    the equation $(675a)^2 + (675b)^2 = 675^2c^4$ modulo $p^2$ to obtain
+    \begin{equation*}
+      5^6\cdot 29 = 14^2 + 673^2 \equiv 675^2 = 3^6\cdot 5^4  \md p^2,
+    \end{equation*}
+    producing a contradiction. We conclude that in this case $p \in \brk{2,5}$,
+    and the result follows.
+\end{proof}
+
+\santi{Note that $7a + b \equiv 0 \md 25$ is equivalent to $a \equiv 7b \md
+  25$.}
+\begin{lemma}
+  \label{lemma:exceptional-triples}
+  Let $(a,b,c)$ be a twist-minimal triples.
+  \begin{enumerate}[label=(\alph*)]
+  \item \label{item:2-exceptional} $2 \mid \twerr(a,b,c)$ if and only if $2 \mid b$.
+  \item \label{item:5-exceptional} $5 \mid \twerr(a,b,c)$ if and only if $a \equiv 7b \md 25$ and $5
+    \mid c$.
+  \end{enumerate}
+  We say that $(a,b,c)$ is \cdef{2-exceptional} when \ref{item:2-exceptional}
+  holds, and \cdef{5-exceptional} when \ref{item:5-exceptional} holds.
+\end{lemma}
+\begin{proof}
+  \hfill
+  \begin{enumerate}[label=(\alph*)]
+  \item If $2 \mid \twerr(a,b,c)$, then $4 \mid A$. This implies that $a$ and
+    $c$ have the same parity. Since $c \equiv 1 \md 4$, $a$ must be odd. But
+    since $a$ and $b$ have oposite parity, we conclude that $2 \mid b$.
+    Conversely, suppose that $2 \mid b$. This implies that $a$ is odd. Since $9
+    \mid B$ always, we only need to show that $4 \mid A$. But this is visibly
+    true once we know that $a$ is odd.
+  \item If $5 \mid \twerr(a,b,c)$, then $A \equiv 0 \md 25$. This implies that
+    $a \equiv 7b \md 25$. From this congruence, we see that $c^4 = a^2 +
+    b^2 = 50b^2 \equiv 0 \md 25$, so that $5 \mid c$. Conversely, the
+    congruence $a \equiv 7b \md 25$ implies that $A \equiv 0 \md 25$ and $B/(8c)
+    \equiv 0 \md 25$, which is enough to conclude that $5 \mid \twerr(a,b,c)$.
+  \end{enumerate}
+\end{proof}
+\santi{Can we characterize all five exceptional triples with a simple criterion
+in terms of Gaussian integers? Note that if $5 \mid c$, we can take $\pi \in
+\{1 + 2i, 1-2i\}$, and then every for every $k > 0$ we can produce a twist
+minimal triple of the form $(\Re(i^n\pi^{4k}), \Im(i^n\pi^{4k}), 5^k)$. A bunch of
+these turn out to be $5$-exceptional, but not all of them. (See the Magma code
+commented here)}.
+\spark{Yes, please refer to the comments I left in the next question, or Lemma 7.7 of this updated document.}
+
+% ZZ := Integers();
+% t := PolynomialRing(Integers()).1;
+% K<i> := NumberField(t^2 + 1);
+
+% candidates := [];
+% for k := 1 to 10 do
+%     for pi in {1 + 2*i, 1-2*i} do;
+%         c := 5^k;
+%         for n :=0 to 3 do
+%             alpha := i^n*pi^(4*k);
+%             a := ZZ!(alpha[1]);
+%             b := ZZ!(alpha[2]);
+%             if IsDivisibleBy(7*a + b,25) then Append(~candidates, [a,b,c]); end if;
+%         end for;
+%     end for;
+% end for;
+
+\spark{Please refer to the updated Magma code commented here. This code will be relevant to Lemma 7.7}
+% ZZ := Integers();
+% t := PolynomialRing(Integers()).1;
+% K<i> := NumberField(t^2 + 1);
+
+% candidates := [];
+% for k := 1 to 10 do
+%     for pi in {1 + 2*i, 1-2*i} do;
+%         c := 5^k;
+%         for n :=0 to 3 do
+%             alpha := i^n*pi^(4*k);
+%             a := ZZ!(alpha[1]);
+%             b := ZZ!(alpha[2]);
+%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
+%             beta := i^n*pi^(4*k-2);
+%             a := 5*ZZ!(beta[1]);
+%             b := 5*ZZ!(beta[2]);
+%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
+%         end for;
+%     end for;
+% end for;
+% print(candidates);
+
+\begin{lemma}
+  \label{lemma:4-nmid-twerr}
+  Let $(a,b,c)$ be a twist-minimal triple. Then
+  $\twerr(a,b,c)$ is not divisible by $4$.
+\end{lemma}
+\begin{proof}
+  Suppose that $4 \mid \twerr(a,b,c)$. By definition, this means that $4^2 \mid
+  A$ and $4^3 \mid B$. From \Cref{eq:A,eq:B}, we deduce that
+  \begin{align*}
+    123a + 114b + 125c^2 &\equiv 0 \md 8, \\
+    2502a + 261b + 2500c^2 &\equiv 0 \md 8.
+  \end{align*}
+  Since $c \equiv 1 \md 4$ (\Cref{lemma:twist-min-triples}), we have that
+  $c^2 \equiv 1 \md 8$, and the above congruences simplify to:
+    \begin{align*}
+    3a + 2b + 5 &\equiv 0 \md 8, \\
+    6a + 5b + 4 &\equiv 0 \md 8.
+    \end{align*}
+    These imply that $b \equiv 6 \md 8$, and $a^2 + b^2 = c^4$ imlpies that
+    $a^2 \equiv 5 \md 8$. But this contradicts the fact that $5$ is not a
+    square modulo $8$.
+  \end{proof}
+
+  \santi{Sun Woo, according to Lemma 6.3 in the Overleaf document, we should
+    have that for a twist minimal triple $(a,b,c)$, the only possibilities for
+    $\twerr(a,b,c)$ are $10, 5, 2, 1$. So far, I agree that when $(a,b,c)$ is
+    not $5$-exceptional, then $\twerr(a,b,c) = 2, 1$. But after some struggle,
+    I found an exceptional twist minimal triple with twist error equal to $25$:
+    take $(a,b,c) = (-527, -336, 25)$. From the examples I have computed, $25$
+    seems to be the greatest power of $5$ dividing $\twerr(a,b,c)$. Can we show
+    that $5^3$ does not divide $\twerr$?}
+
+\spark{Thank you very much for pointing out the mistake, Santi. The two lemmas below outlines the classification of 5-exceptional twist-minimal triples. Maybe Lemma 7.6 is redundant, as Lemma 7.7 already provides the proof that $\twerr(a,b,c)$ is not divisible by $5^4$.}
+
+\begin{lemma} \label{lemma:625-nmid-twerr}
+    Let (a,b,c) be a twist-minimal triple. Then $\twerr(a,b,c)$ is not divisible by $5^4$.
+\end{lemma}
+\begin{proof}
+    Suppose that $5^4 \mid \twerr(a,b,c)$. By definition, this implies that $5^8 \mid A$ and $5^{12} \mid B$. Using \Cref{eq:A,eq:B}, we deduce that
+    \begin{align*}
+        123a + 114b + 125c^2 &\equiv 0 \text{ mod } 5^8 \\
+        c(2502a + 261b + 2500c^2) &\equiv 0 \text{ mod } 5^{12}.
+    \end{align*}
+
+    We divide into 3 cases depending on the valuation of $c$ with respect to $5$.
+
+\medskip
+
+    \textbf{Case 1}: Suppose $5^3 \mid c$. Then \Cref{eq:A} implies
+    \begin{equation*}
+        41 a + 38b \equiv 0 \text{ mod } 5^8.
+    \end{equation*}
+    Multiplying both sides of the equation by 238186, we obtain
+    \begin{equation*}
+        a + 66693b \equiv 0 \text{ mod } 5^8
+    \end{equation*}
+    which is equivalent to
+    \begin{equation*}
+        a^2 \equiv 299999 b^2 \text{ mod } 5^8 
+    \end{equation*}
+    Using the equation $a^2 + b^2 = c^4$, we obtain
+    \begin{equation*}
+        a^2 + b^2 \equiv 300000a^2 = 2^5 \cdot 3 \cdot 5^5 \cdot a^2 \equiv 0 \text{ mod } 5^8
+    \end{equation*}
+    This implies that $a \equiv b \equiv 0 \text{ mod } 5^2$, which contradicts that $(a,b,c)$ is twist minimal.
+
+    \medskip 
+
+    \textbf{Case 2}: Suppose that $5^2 \mid c$ but $5^3 \nmid c$. Then \Cref{eq:A,eq:B} imply
+    \begin{align*}
+        41a + 38b &\equiv 0 \text{ mod } 5^7 \\
+        278a + 29b &\equiv 0 \text{ mod } 5^7
+    \end{align*}
+    Multiply the first equation by 26727 to obtain
+    \begin{equation*}
+        2057a + b \equiv 0 \text{ mod } 5^7
+    \end{equation*}
+    Substitute into the second equation to obtain
+    \begin{equation*}
+        18750a = 2 \cdot 3 \cdot 5^5 a \equiv 0 \text{ mod } 5^7
+    \end{equation*}
+    This implies that $a \equiv b \equiv 0 \text{ mod } 5^2$, which contradicts that $(a,b,c)$ is twist minimal.
+
+    \medskip 
+
+    \textbf{Case 3}: Suppose that $5 \mid c$ but $5^2 \nmid c$. Then \Cref{eq:A} implies
+    \begin{equation*}
+        41a + 38b \equiv 0 \text{ mod } 5^5.
+    \end{equation*}
+    Multiply the equation by 1727 to obtain
+    \begin{equation*}
+        2057a + b \equiv 0 \text{ mod } 5^5,
+    \end{equation*}
+    which implies
+    \begin{equation*}
+        3124a^2 \equiv b^2 \text{ mod } 5^5.
+    \end{equation*}
+    Substitute the equation to $a^2 + b^2 = c^4$ to obtain
+    \begin{equation*}
+        a^2 + b^2 \equiv 3125 a^2 \equiv 5^5 a^2 \equiv 0 \equiv c^4 \text{ mod } 5^5.
+    \end{equation*}
+    This implies that $5^2 \mid c$, a contradiction.
+
+    \medskip 
+
+    \textbf{Case 4}: Suppose that $5 \nmid c$. Then \Cref{eq:B} implies
+    \begin{equation*}
+        278a + 29b \equiv 0 \text{ mod } 5^4.
+    \end{equation*}
+    Multiply the equation by 194 to obtain
+    \begin{equation*}
+        182a + b \equiv 0 \text{ mod } 5^4,
+    \end{equation*}
+    which implies
+    \begin{equation*}
+        624a^2 \equiv b^2 \text{ mod } 5^4.
+    \end{equation*}
+    Substitute the equation to $a^2 + b^2 = c^4$ to obtain
+    \begin{equation*}
+        a^2 + b^2 \equiv 625 a^2 \equiv 5^4 a^2 \equiv 0 \equiv c^4 \text{ mod } 5^4.
+    \end{equation*}
+    This implies that $5 \mid c$, a contradiction.
+\end{proof}
+
+\begin{lemma}
+    Let (a,b,c) be a 5-exceptional twist-minimal triple. Let $l$ be the valuation of $\twerr(a,b,c)$ with respect to $5$. Note that $1 \leq l \leq 3$ by Lemma \ref{lemma:625-nmid-twerr}. Let $d \in \mathbb{Z}[i]$ be any Gaussian integer coprime to $(1+2i)$ and $(1-2i)$ whose prime factors are all not equivalent to 3 modulo 4 and whose norm is an integral $4$-th power. 
+    \begin{itemize}
+        \item Suppose $l = 1$. Then the twist minimal triple $(a,b,c)$ is of the form
+        \begin{equation}
+            (a,b,c) = \begin{cases} \left(\Re(5 \cdot (1-2i)^2 \cdot d), \Im(5 \cdot (1-2i)^2 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right) \\
+            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right)
+            \end{cases},
+        \end{equation}
+        \item Suppose $l = 2$. Then the twist minimal triple $(a,b,c)$ is of the form
+        \begin{equation}
+            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5^k \cdot \sqrt{d \overline{d}} \right)
+        \end{equation}
+        for any positive integer $k \geq 2$.
+        \item Suppose $l = 3$. Then the twist minimal triple $(a,b,c)$ is of the form
+        \begin{equation}
+            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5^k \cdot \sqrt{d \overline{d}} \right)
+        \end{equation}
+        for any positive integer $k \geq 2$.
+    \end{itemize}
+\end{lemma}
+\begin{proof}
+    We recall the parts of \Cref{eq:A,eq:B} excluding the terms containing $c^2$.
+    \begin{align*}
+        &123a + 114b = 3(41a + 38b) \\
+        &2502a + 261b = 9(278a + 29b)
+    \end{align*}
+    Observe that
+    \begin{align*}
+        (1+2i)^5 &= 41 - 38i\\
+        (1+2i)^7 &= 29 + 278i
+    \end{align*}
+    Multiply the above equations by $a+bi$ to obtain
+    \begin{align*}
+        (1+2i)^5 \cdot (a+bi) &= (41-38i) \cdot (a+bi) = (41a + 38b) + i(41b - 38a) \\
+        (1+2i)^7 \cdot (a+bi) &= (29+278i) \cdot (a+bi) = (29a -278b) + i(278a + 29b)
+    \end{align*}
+    Using the above equation, we obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, we may write 5-exceptional triples $(a,b,c)$ as
+    \begin{align*}
+        a+bi = \begin{cases}
+            (1-2i)^{4k} \cdot d \\
+            5 \cdot (1-2i)^{4k-2} \cdot d
+        \end{cases}
+    \end{align*}
+    for any positive integer $k \geq 1$ and $d \in \mathbb{Z}[i]$ an element that does not lie in the ideals $(1+2i)$ and $(1-2i)$ such that $d$ is not divisible by primes equivalent to $3$ mod $4$ and whose norm is an integral $4$-th power. We use the abbreviation $v_5(\cdot)$ to denote the valuation of an element $\cdot$ with respect to $5$. Then substituting the above expression to \Cref{eq:A} gives
+    \begin{equation} \label{eq:5-val-A}
+        v_5(A(a,b,c)) = \begin{cases}
+            3 &\text{ if } a+bi = 5 \cdot (1-2i)^2 \cdot d \\
+            4 &\text{ if } a+bi = (1-2i)^4 \cdot d \\
+            5 &\text{ if } a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
+            6 &\text{ if } a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
+        \end{cases}
+    \end{equation}
+    Likewise, substituting the above expression to \Cref{eq:B} gives
+    \begin{equation} \label{eq:5-val-B}
+        v_5(B(a,b,c)) = \begin{cases}
+            4 &\text{ if } a+bi = 5 \cdot (1-2i)^2 \cdot d \\
+            5 &\text{ if } a+bi = (1-2i)^4 \cdot d \\
+            k + 7 &\text{ if } a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
+            k + 7 &\text{ if } a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
+        \end{cases}
+    \end{equation}
+    Combining \Cref{eq:5-val-A,eq:5-val-B}, we obtain
+    \begin{align*}
+        v_5(\twerr(a,b,c)) = 1 &\iff a+bi = 5 \cdot (1-2i)^2 \cdot d \text{ or } = (1-2i)^4 \cdot d \\
+        v_5(\twerr(a,b,c)) = 2 &\iff a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
+        v_5(\twerr(a,b,c)) = 3 &\iff a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
+    \end{align*}
+\end{proof}
+
+\spark{For example, suppose that $d=1$. Then Lemma 7.7 shows that if $c = 5$, then there are $8$ twist-minimal triples such that $5 \mid \twerr(a,b,c)$ and $25 \nmid \twerr(a,b,c)$. These are: 
+\begin{equation*}
+    a+bi \in \{-15-20i, 20-15i, 15 + 20i, -20+15i, -7 + 24i, -24-7i, 7 - 24i, 24 + 7i\}
+\end{equation*}
+These 8 elements correspond to the following triples:
+\begin{equation*}
+    (a,b) \in \{(-15,-20),(20,-15),(15,20),(-20,15),(-7,24),(-24,-7),(7,-24),(24,7)\}
+\end{equation*}
+This agrees with the result of the updated magma code commented below.
+}
+
+% ZZ := Integers();
+% t := PolynomialRing(Integers()).1;
+% K<i> := NumberField(t^2 + 1);
+
+% candidates := [];
+% for k := 1 to 10 do
+%     for pi in {1 + 2*i, 1-2*i} do;
+%         c := 5^k;
+%         for n :=0 to 3 do
+%             alpha := i^n*pi^(4*k);
+%             a := ZZ!(alpha[1]);
+%             b := ZZ!(alpha[2]);
+%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
+%             beta := i^n*pi^(4*k-2);
+%             a := 5*ZZ!(beta[1]);
+%             b := 5*ZZ!(beta[2]);
+%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
+%         end for;
+%     end for;
+% end for;
+% print(candidates);
+
+
+\clearpage
+\bibliography{refs.bib}{} \bibliographystyle{amsalpha}
+\end{document}
