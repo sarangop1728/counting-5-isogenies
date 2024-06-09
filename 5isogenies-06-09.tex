@@ -294,7 +294,8 @@ breaklinks=true}
 \DeclareMathOperator{\Ht}{Ht} % height
 \DeclareMathOperator{\twht}{twHt} % twist height
 \DeclareMathOperator{\twerr}{twerr} % twist error
-
+\DeclareMathOperator{\Fermat}{Fermat} % Fermat triple associated to a Gaussian
+                                      % integer
 
 
 
@@ -479,6 +480,20 @@ triples that will be used in the argument and later on in the article.
   \item $a$ and $b$ have distinct parity.
   \item If $a = 0$, then $b^2 = c^2 = 1$.
   \item If $b = 0$, then $a^2 = c^2 = 1$.
+  \item If $\alpha \in \ZZ[i]$, define
+    $\Fermat(\alpha) \colonequals (\Re(\alpha), \Im(\alpha),
+    (\alpha\ol{\alpha})^{1/4})$. Then, $\Fermat(\alpha)$ is a twist-mininmal triple if
+    and only if
+    \begin{itemize}
+      \item every prime factor $\pi$ of $\alpha\ZZ[i]$ lies above a prime
+    $p \equiv 1 \md 4$,
+      \item $\ord_p(\alpha) \leq 1$ for every rational prime $p$ dividing
+        $\alpha$, and
+      \item $\ord_\pi(\alpha) + \ord_{\ol{\pi}}(\alpha) = 4k$ for some
+        $k \in\ZZ_{>0}$.
+    \end{itemize}
+    We say that $\alpha \in \ZZ[i]$ is \cdef{twist-minimal} if
+    $\Fermat(\alpha)$ is a twist-minimal triple.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
@@ -503,6 +518,8 @@ triples that will be used in the argument and later on in the article.
     square, and if $p \mid a$, then $p^2 \mid a$ and $p \mid c$. The
     $(2,2,1)$-minimality implies that $a$ has no prime divisors.
   \item Same as above.
+  \item Follows from the above by the unique factorization of $\ZZ[i]$ and the
+    multiplicativity of the norm $\Nm(\alpha) \colonequals \alpha\ol{\alpha}$.
   \end{enumerate}
 \end{proof}
 
@@ -913,8 +930,6 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
     and the result follows.
 \end{proof}
 
-\santi{Note that $7a + b \equiv 0 \md 25$ is equivalent to $a \equiv 7b \md
-  25$.}
 \begin{lemma}
   \label{lemma:exceptional-triples}
   Let $(a,b,c)$ be a twist-minimal triples.
@@ -943,12 +958,12 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
   \end{enumerate}
 \end{proof}
 \santi{Can we characterize all five exceptional triples with a simple criterion
-in terms of Gaussian integers? Note that if $5 \mid c$, we can take $\pi \in
-\{1 + 2i, 1-2i\}$, and then every for every $k > 0$ we can produce a twist
-minimal triple of the form $(\Re(i^n\pi^{4k}), \Im(i^n\pi^{4k}), 5^k)$. A bunch of
-these turn out to be $5$-exceptional, but not all of them. (See the Magma code
-commented here)}.
-\spark{Yes, please refer to the comments I left in the next question, or Lemma 7.7 of this updated document.}
+  in terms of Gaussian integers? Note that if $5 \mid c$, we can take
+  $\pi \in \{1 + 2i, 1-2i\}$, and then for every $k > 0$ we can produce a twist
+  minimal triple of the form $(\Re(i^n\pi^{4k}), \Im(i^n\pi^{4k}), 5^k)$. A
+  bunch of these turn out to be $5$-exceptional, but not all of them. (See the
+  Magma code commented here)}. \spark{Yes, please refer to the comments I left
+  in the next question, or Lemma 7.7 of this updated document.}
 
 % ZZ := Integers();
 % t := PolynomialRing(Integers()).1;
@@ -1033,83 +1048,45 @@ commented here)}.
         123a + 114b + 125c^2 &\equiv 0 \text{ mod } 5^8 \\
         c(2502a + 261b + 2500c^2) &\equiv 0 \text{ mod } 5^{12}.
     \end{align*}
+    We consider 3 cases depending on the valuation of $c$ with respect to $5$.
 
-    We divide into 3 cases depending on the valuation of $c$ with respect to $5$.
-
-\medskip
-
-    \textbf{Case 1}: Suppose $5^3 \mid c$. Then \Cref{eq:A} implies
+    \medskip \textbf{Case 1}: Suppose $5^3 \mid c$. Then,
+    $41 a + 38b \equiv 0 \md 5^8$. This congruence simplifies to
+    $a \equiv 323932b \md 5^8$. Using the equation $a^2 + b^2 = c^4$, we obtain
     \begin{equation*}
-        41 a + 38b \equiv 0 \text{ mod } 5^8.
+        a^2 + b^2 \equiv 300000a^2 = 2^5 \cdot 3 \cdot 5^5 a^2 \equiv 0 \md 5^8.
     \end{equation*}
-    Multiplying both sides of the equation by 238186, we obtain
-    \begin{equation*}
-        a + 66693b \equiv 0 \text{ mod } 5^8
-    \end{equation*}
-    which is equivalent to
-    \begin{equation*}
-        a^2 \equiv 299999 b^2 \text{ mod } 5^8 
-    \end{equation*}
-    Using the equation $a^2 + b^2 = c^4$, we obtain
-    \begin{equation*}
-        a^2 + b^2 \equiv 300000a^2 = 2^5 \cdot 3 \cdot 5^5 \cdot a^2 \equiv 0 \text{ mod } 5^8
-    \end{equation*}
-    This implies that $a \equiv b \equiv 0 \text{ mod } 5^2$, which contradicts that $(a,b,c)$ is twist minimal.
+    This implies that $a \equiv b \equiv 0 \text{ mod } 5^2$, contradicting
+    the twist-minimality of $(a,b,c)$.
 
     \medskip 
-
-    \textbf{Case 2}: Suppose that $5^2 \mid c$ but $5^3 \nmid c$. Then \Cref{eq:A,eq:B} imply
+    \textbf{Case 2}: Suppose that $5^2 \mid c$ but $5^3 \nmid c$. We obtain the
+    linear system
     \begin{align*}
-        41a + 38b &\equiv 0 \text{ mod } 5^7 \\
-        278a + 29b &\equiv 0 \text{ mod } 5^7
+        41a + 38b &\equiv 0 \md 5^7, \\
+        278a + 29b &\equiv 0 \md 5^7.
     \end{align*}
-    Multiply the first equation by 26727 to obtain
+    Solving for $b$ in the firs equation and substituting into the second one,
+    we arrive at
     \begin{equation*}
-        2057a + b \equiv 0 \text{ mod } 5^7
+        18750a = 2 \cdot 3 \cdot 5^5 a \equiv 0 \md 5^7.
     \end{equation*}
-    Substitute into the second equation to obtain
-    \begin{equation*}
-        18750a = 2 \cdot 3 \cdot 5^5 a \equiv 0 \text{ mod } 5^7
-    \end{equation*}
-    This implies that $a \equiv b \equiv 0 \text{ mod } 5^2$, which contradicts that $(a,b,c)$ is twist minimal.
+    This implies that $a \equiv b \equiv 0 \md 5^2$, contradicting
+    the twist-minimality of $(a,b,c)$.
 
-    \medskip 
-
-    \textbf{Case 3}: Suppose that $5 \mid c$ but $5^2 \nmid c$. Then \Cref{eq:A} implies
-    \begin{equation*}
-        41a + 38b \equiv 0 \text{ mod } 5^5.
-    \end{equation*}
-    Multiply the equation by 1727 to obtain
-    \begin{equation*}
-        2057a + b \equiv 0 \text{ mod } 5^5,
-    \end{equation*}
-    which implies
-    \begin{equation*}
-        3124a^2 \equiv b^2 \text{ mod } 5^5.
-    \end{equation*}
-    Substitute the equation to $a^2 + b^2 = c^4$ to obtain
+    \medskip \textbf{Case 3}: Suppose that $5 \mid c$ but $5^2 \nmid c$. Then
+    $41a + 38b \equiv 0 \md 5^5$. Solving for $b$ we obtain
+    $b \equiv 1068a \md5^5$, which implies
     \begin{equation*}
         a^2 + b^2 \equiv 3125 a^2 \equiv 5^5 a^2 \equiv 0 \equiv c^4 \text{ mod } 5^5.
     \end{equation*}
     This implies that $5^2 \mid c$, a contradiction.
 
-    \medskip 
-
-    \textbf{Case 4}: Suppose that $5 \nmid c$. Then \Cref{eq:B} implies
+    \medskip \textbf{Case 4}: Suppose that $5 \nmid c$. Then \Cref{eq:B}
+    implies $278a + 29b \equiv 0 \text{ mod } 5^4$. Solving for $b$, we obtain
+    $b \equiv 497 \md 5^4$, which implies
     \begin{equation*}
-        278a + 29b \equiv 0 \text{ mod } 5^4.
-    \end{equation*}
-    Multiply the equation by 194 to obtain
-    \begin{equation*}
-        182a + b \equiv 0 \text{ mod } 5^4,
-    \end{equation*}
-    which implies
-    \begin{equation*}
-        624a^2 \equiv b^2 \text{ mod } 5^4.
-    \end{equation*}
-    Substitute the equation to $a^2 + b^2 = c^4$ to obtain
-    \begin{equation*}
-        a^2 + b^2 \equiv 625 a^2 \equiv 5^4 a^2 \equiv 0 \equiv c^4 \text{ mod } 5^4.
+       c^4 = a^2 + b^2 \equiv 625 a^2 \equiv 5^4 a^2 \equiv 0 \md5^4.
     \end{equation*}
     This implies that $5 \mid c$, a contradiction.
 \end{proof}
@@ -1120,17 +1097,17 @@ commented here)}.
         \item Suppose $l = 1$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
             (a,b,c) = \begin{cases} \left(\Re(5 \cdot (1-2i)^2 \cdot d), \Im(5 \cdot (1-2i)^2 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right) \\
-            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right)
+            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt[4]{d \overline{d}} \right)
             \end{cases},
         \end{equation}
         \item Suppose $l = 2$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
-            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5^k \cdot \sqrt{d \overline{d}} \right)
+            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
         \end{equation}
         for any positive integer $k \geq 2$.
         \item Suppose $l = 3$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
-            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5^k \cdot \sqrt{d \overline{d}} \right)
+            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
         \end{equation}
         for any positive integer $k \geq 2$.
     \end{itemize}
@@ -1151,7 +1128,13 @@ commented here)}.
         (1+2i)^5 \cdot (a+bi) &= (41-38i) \cdot (a+bi) = (41a + 38b) + i(41b - 38a) \\
         (1+2i)^7 \cdot (a+bi) &= (29+278i) \cdot (a+bi) = (29a -278b) + i(278a + 29b)
     \end{align*}
-    Using the above equation, we obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, we may write 5-exceptional triples $(a,b,c)$ as
+    We note that the valuations of $41a + 38b$ and $41b-38a$ with respect to $5$ are equal. To see this, we take norm on both sides of the equation to obtain
+    \begin{equation*}
+        5^5 \cdot c^4 = 5^5 \cdot (a^2 + b^2) = (41a + 38b)^2 + (41b-38a)^2
+    \end{equation*}
+    If $41a + 38b$ and $41b-38a$ have different valuations with respect to $5$, then the valuation of the RHS of the equation is even, which contradicts the fact that the valuation of the LHS of the equation is odd. The analogous reasoning shows that the valuation of $29a - 278b$ ad $278a + 29b$ with respect to $5$ are identical.
+    
+    We obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, the 5-exceptional triples $(a,b,c)$ satisfy
     \begin{align*}
         a+bi = \begin{cases}
             (1-2i)^{4k} \cdot d \\
@@ -1216,6 +1199,8 @@ This agrees with the result of the updated magma code commented below.
 %     end for;
 % end for;
 % print(candidates);
+
+\spark{Here's a question we would have to figure out. Based on the two previous lemmas, the possible values of $\twerr(a,b,c)$ are: $1, 2, 5, 10, 25, 50, 125, 250$. We would need to verify whether the twist-minimal triples with such values of $\twerr(a,b,c)$ give rise to non-isomorphic families of elliptic curves, up to quadratic twists over $\mathbb{Q}$.}
 
 
 \clearpage
