@@ -1120,17 +1120,17 @@ commented here)}.
         \item Suppose $l = 1$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
             (a,b,c) = \begin{cases} \left(\Re(5 \cdot (1-2i)^2 \cdot d), \Im(5 \cdot (1-2i)^2 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right) \\
-            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right)
+            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt[4]{d \overline{d}} \right)
             \end{cases},
         \end{equation}
         \item Suppose $l = 2$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
-            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5 \cdot \sqrt{d \overline{d}} \right)
+            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
         \end{equation}
         for any positive integer $k \geq 2$.
         \item Suppose $l = 3$. Then the twist minimal triple $(a,b,c)$ is of the form
         \begin{equation}
-            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5 \cdot \sqrt{d \overline{d}} \right)
+            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
         \end{equation}
         for any positive integer $k \geq 2$.
     \end{itemize}
@@ -1151,7 +1151,13 @@ commented here)}.
         (1+2i)^5 \cdot (a+bi) &= (41-38i) \cdot (a+bi) = (41a + 38b) + i(41b - 38a) \\
         (1+2i)^7 \cdot (a+bi) &= (29+278i) \cdot (a+bi) = (29a -278b) + i(278a + 29b)
     \end{align*}
-    Using the above equation, we obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, we may write 5-exceptional triples $(a,b,c)$ as
+    We note that the valuations of $41a + 38b$ and $41b-38a$ with respect to $5$ are equal. To see this, we take norm on both sides of the equation to obtain
+    \begin{equation*}
+        5^5 \cdot c^4 = 5^5 \cdot (a^2 + b^2) = (41a + 38b)^2 + (41b-38a)^2
+    \end{equation*}
+    If $41a + 38b$ and $41b-38a$ have different valuations with respect to $5$, then the valuation of the RHS of the equation is even, which contradicts the fact that the valuation of the LHS of the equation is odd. The analogous reasoning shows that the valuation of $29a - 278b$ ad $278a + 29b$ with respect to $5$ are identical.
+    
+    We obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, the 5-exceptional triples $(a,b,c)$ satisfy
     \begin{align*}
         a+bi = \begin{cases}
             (1-2i)^{4k} \cdot d \\
@@ -1217,6 +1223,7 @@ This agrees with the result of the updated magma code commented below.
 % end for;
 % print(candidates);
 
+\spark{Here's a question we would have to figure out. Based on the two previous lemmas, the possible values of $\twerr(a,b,c)$ are: $1, 2, 5, 10, 25, 50, 125, 250$. We would need to verify whether the twist-minimal triples with such values of $\twerr(a,b,c)$ give rise to non-isomorphic families of elliptic curves, up to quadratic twists over $\mathbb{Q}$.}
 
 \clearpage
 \bibliography{refs.bib}{} \bibliographystyle{amsalpha}
