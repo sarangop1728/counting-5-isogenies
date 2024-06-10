@@ -485,8 +485,8 @@ triples that will be used in the argument and later on in the article.
     (\alpha\ol{\alpha})^{1/4})$. Then, $\Fermat(\alpha)$ is a twist-mininmal triple if
     and only if
     \begin{itemize}
-      \item every prime factor $\pi$ of $\alpha\ZZ[i]$ lies above a prime
-    $p \equiv 1 \md 4$,
+    \item every prime factor $\pi$ of $\alpha\ZZ[i]$ lies above $2$ or a prime
+      $p \equiv 1 \md 4$,
       \item $\ord_p(\alpha) \leq 1$ for every rational prime $p$ dividing
         $\alpha$, and
       \item $\ord_\pi(\alpha) + \ord_{\ol{\pi}}(\alpha) = 4k$ for some
@@ -1200,6 +1200,65 @@ This agrees with the result of the updated magma code commented below.
 % end for;
 % print(candidates);
 
+\begin{lemma}
+  Let $(a,b,c)$ be a $5$-exceptional triple corresponding to
+  $\alpha = a+bi \in \ZZ[i]$. Then, we can write $\alpha = \beta\cdot\delta$
+  where $\beta$ and $\delta$ coprime twist-minimal Gaussian integers, and
+  $\beta$ is of the form described in
+  \Cref{table:characterization-5-exceptional-triples}.
+\end{lemma}
+\begin{table}[ht]
+    \begin{tabular}{|c|c|}
+      \hline
+      $\ord_5(\twerr(a,b,c))$ & $\beta$                 \\ \hline
+      $1$   & $5(1\pm 2i)^2, (1\pm 2i)^4$              \\ \hline
+      $2$   & $(1\pm 2i)^{4k}$                         \\ \hline
+      $3$   & $5(1\pm 2i)^{4k-2}$                      \\ \hline
+    \end{tabular}
+    \caption{Characterization of $5$-exceptional triples.}
+    \label{table:characterization-5-exceptional-triples}
+\end{table}
+\begin{proof}
+  Since $(a,b,c)$ is $5$-exceptional, we know that $\ord_5(c) = k \geq 1$.
+  Moreover, we can write $\alpha = \beta\cdot \delta$ so that $\delta$ is
+  coprime to both $1\pm 2i$. This implies that $\beta \in \brk{(1\pm 2i)^{4k},
+    5(1\pm 2i)^{4k-2}}$. On the other hand, observe that
+  \begin{align*}
+        (1+2i)^5  \alpha &= (41-38i)(a+bi) = (41a + 38b) + i(41b - 38a), \\
+        (1+2i)^7  \alpha &= (29+278i)(a+bi) = (29a -278b) + i(278a + 29b).
+  \end{align*}
+  From these equations we conclude that\footnote{This can be seen by taking the
+    norm and comparing the parity of $\ord_5(\cdot)$ on each side of the
+    equations.}
+  \begin{align*}
+    \ord_5(41a + 38b) &= \ord_5(41b - 38a) = \ord_5((1+2i)^5\alpha), \\
+    \ord_5(278a + 29b) &= \ord_5(29a -278b) = \ord_5((1+2i)^7\alpha).
+  \end{align*}
+  Taking $\ord_5(\cdot)$ on \Cref{eq:A,eq:B} we obtain
+  \begin{align}
+    \label{eq:ord-5-A}
+    \ord_5(A(a,b,c)) \geq \min\brk{\ord_5((1+2i)^5\beta), 3+2k}, \\
+    \label{eq:ord-5-B}
+    \ord_5(B(a,b,c)) \geq \min\brk{\ord_5((1+2i)^7\beta), 4+2k},
+  \end{align}
+  with equality when the entries of the minimum functions are distinct.
+
+  \begin{table}[ht]
+    \begin{tabular}{|c|c|c|c|}
+      \hline
+      $\beta$          & $\ord_5(A)$ & $\ord_5(B)$ & $\ord_5(\twerr(a,b,c))$ \\ \hline
+      $(1+2i)^4$       &             &             &                         \\ \hline
+      $(1-2i)^4$       &             &             &                         \\ \hline
+      $5(1+2i)^2$      &             &             &                         \\ \hline
+      $5(1-2i)^2$      &             &             &                         \\ \hline
+      $(1+2i)^{4k}$    &             &             &                         \\ \hline
+      $(1-2i)^{4k}$    &             &             &                         \\ \hline
+      $5(1+2i)^{4k-2}$ &             &             &                         \\ \hline
+      $5(1-2i)^{4k-2}$ &             &             &                         \\ \hline
+    \end{tabular}
+  \end{table}
+\end{proof}
+  
 \spark{Here's a question we would have to figure out. Based on the two previous lemmas, the possible values of $\twerr(a,b,c)$ are: $1, 2, 5, 10, 25, 50, 125, 250$. We would need to verify whether the twist-minimal triples with such values of $\twerr(a,b,c)$ give rise to non-isomorphic families of elliptic curves, up to quadratic twists over $\mathbb{Q}$.}
 
 
