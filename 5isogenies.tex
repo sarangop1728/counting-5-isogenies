@@ -1,5 +1,4 @@
 \documentclass[12pt]{amsart}
-
 % PREAMBLE
 \usepackage{mathscinet}
 \usepackage[utf8]{inputenc} % encoding
@@ -292,6 +291,7 @@ breaklinks=true}
 \DeclareMathOperator{\mind}{md} % minimality defect
 \DeclareMathOperator{\twmind}{tmd} % twist minimality defect
 \DeclareMathOperator{\Ht}{Ht} % height
+\DeclareMathOperator{\tw}{tw} % twist
 \DeclareMathOperator{\twht}{twHt} % twist height
 \DeclareMathOperator{\twerr}{twerr} % twist error
 \DeclareMathOperator{\Fermat}{Fermat} % Fermat triple associated to a Gaussian
@@ -855,6 +855,39 @@ The discriminant of this equation is $\Delta(a,b,c) \colonequals
 \section{Counting $5$-isogenies up to $\Qbar$-twist}
 \label{sec:counting-5-isogenies-twist}
 
+We seek to leverage our count of twist-minimal triples $N_\FF(T)$ to count
+$5$-isogenies of elliptic curves over $\QQ$ up to twist, since by
+\Cref{thm:Eabc}, we have a bijective correspondence between these. The issue,
+is that we wish to count $5$-isogenies by naive height, and this height is far
+from convenient.
+
+Let $(a,b,c)$ be a Fermat triple. Define
+\begin{align*}
+  H(a,b,c) &\colonequals H(A(a,b,c), B(a,b,c)) \\
+           &= \max(4|A(a,b,c)|^3,27|B(a,b,c)|^2) \\
+           &= 2^5\cdot 3^3\max(|123a + 114b + 125c^2|^3,2c^2|2502a + 261b + 2500c^2|^2). \\
+\end{align*}
+If $\phi_{a,b,c}\colon E_{a,b,c} \to E_{a,b,c}'$ is the $5$-isogeny
+corresponding to a twist-minimal triple $(a,b,c)$, then its twist height is
+not necesarily equal to $H(a,b,c)$. This is because the model chosen for
+$E_{a,b,c}$ need not be twist-minimal.
+
+\begin{definition}
+  Define the \cdef{twist error} of a Fermat triple $(a,b,c)$, denoted by $\twerr(a,b,c)$, to be the twist
+  minimality defect of the elliptic curve $E_{a,b,c}$. In other words,
+  \begin{equation*}
+    \twerr(a,b,c) \colonequals \twmind(A(a,b,c),B(a,b,c)).
+  \end{equation*}
+\end{definition}
+
+This is the quantity needed to calculate the twist height of $E_{a,b,c}$.
+\begin{equation}
+  \label{eq:twHt-Eabc}
+  \twht(E_{a,b,c}) = H(a,b,c)/\twerr(a,b,c)^6.
+\end{equation}
+Our first task is to understand the quantity $\twerr(a,b,c)$. We break this up
+into a number of lemmas.
+
 \begin{lemma}
   \label{lemma:p-mid-c-and-pp-mid-A}
   Let $(a,b,c)$ be a twist-minimal triple. If a prime $p$ satisfies
@@ -885,21 +918,13 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
     (123a')^2 + (123b')^2 &\equiv (114^2 + 123^2)(b')^2 \md p \\
                        &\equiv 3^2\cdot 5^5\cdot (b')^2 \equiv 0 \md p .
   \end{align*}
-  It follows that $p \mid b'$, and therefore $p \mid a'$ as well. This
-  contradicts the twist-minimality of the triple $(a,b,c)$.
+  This allows us to conclude that $p \mid b'$, and therefore $p \mid a'$ as well. This contradicts the
+  twist-minimality of the triple $(a,b,c)$.
 
   To see that the case $p=5$ indeed occurs, one can take $(a,b,c) = (-527,
   -336, 25)$. This triple is twist-minimal, since $\gcd(a,b)=1$, and $A(a,b,c)
   = 2^4\cdot 3 \cdot 5^5$.
 \end{proof}
-
-\begin{definition}
-  Define the \cdef{twist error} of a Fermat triple $(a,b,c)$, denoted by $\twerr(a,b,c)$, to be the twist
-  minimality defect of the elliptic curve $E_{a,b,c}$. In other words,
-  \begin{equation*}
-    \twerr(a,b,c) \colonequals \twmind(A(a,b,c),B(a,b,c)).
-  \end{equation*}
-\end{definition}
 
 \begin{lemma}
   Let $(a,b,c)$ be a twist-minimal triple. If $p$ is a prime divisor of
@@ -932,11 +957,12 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
 
 \begin{lemma}
   \label{lemma:exceptional-triples}
-  Let $(a,b,c)$ be a twist-minimal triples.
+  Let $(a,b,c)$ be a twist-minimal triple.
   \begin{enumerate}[label=(\alph*)]
-  \item \label{item:2-exceptional} $2 \mid \twerr(a,b,c)$ if and only if $2 \mid b$.
-  \item \label{item:5-exceptional} $5 \mid \twerr(a,b,c)$ if and only if $a \equiv 7b \md 25$ and $5
-    \mid c$.
+  \item \label{item:2-exceptional} $2 \mid \twerr(a,b,c)$ if and only if
+    $2 \mid b$.
+  \item \label{item:5-exceptional} $5 \mid \twerr(a,b,c)$ if and only if
+    $a \equiv 7b \md 25$ and $5 \mid c$.
   \end{enumerate}
   We say that $(a,b,c)$ is \cdef{2-exceptional} when \ref{item:2-exceptional}
   holds, and \cdef{5-exceptional} when \ref{item:5-exceptional} holds.
@@ -957,53 +983,6 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
     \equiv 0 \md 25$, which is enough to conclude that $5 \mid \twerr(a,b,c)$.
   \end{enumerate}
 \end{proof}
-\santi{Can we characterize all five exceptional triples with a simple criterion
-  in terms of Gaussian integers? Note that if $5 \mid c$, we can take
-  $\pi \in \{1 + 2i, 1-2i\}$, and then for every $k > 0$ we can produce a twist
-  minimal triple of the form $(\Re(i^n\pi^{4k}), \Im(i^n\pi^{4k}), 5^k)$. A
-  bunch of these turn out to be $5$-exceptional, but not all of them. (See the
-  Magma code commented here)}. \spark{Yes, please refer to the comments I left
-  in the next question, or Lemma 7.7 of this updated document.}
-
-% ZZ := Integers();
-% t := PolynomialRing(Integers()).1;
-% K<i> := NumberField(t^2 + 1);
-
-% candidates := [];
-% for k := 1 to 10 do
-%     for pi in {1 + 2*i, 1-2*i} do;
-%         c := 5^k;
-%         for n :=0 to 3 do
-%             alpha := i^n*pi^(4*k);
-%             a := ZZ!(alpha[1]);
-%             b := ZZ!(alpha[2]);
-%             if IsDivisibleBy(7*a + b,25) then Append(~candidates, [a,b,c]); end if;
-%         end for;
-%     end for;
-% end for;
-
-\spark{Please refer to the updated Magma code commented here. This code will be relevant to Lemma 7.7}
-% ZZ := Integers();
-% t := PolynomialRing(Integers()).1;
-% K<i> := NumberField(t^2 + 1);
-
-% candidates := [];
-% for k := 1 to 10 do
-%     for pi in {1 + 2*i, 1-2*i} do;
-%         c := 5^k;
-%         for n :=0 to 3 do
-%             alpha := i^n*pi^(4*k);
-%             a := ZZ!(alpha[1]);
-%             b := ZZ!(alpha[2]);
-%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
-%             beta := i^n*pi^(4*k-2);
-%             a := 5*ZZ!(beta[1]);
-%             b := 5*ZZ!(beta[2]);
-%             if IsDivisibleBy(7*a + b,5^2) then Append(~candidates, [a,b,c]); end if;
-%         end for;
-%     end for;
-% end for;
-% print(candidates);
 
 \begin{lemma}
   \label{lemma:4-nmid-twerr}
@@ -1026,18 +1005,7 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
     These imply that $b \equiv 6 \md 8$, and $a^2 + b^2 = c^4$ imlpies that
     $a^2 \equiv 5 \md 8$. But this contradicts the fact that $5$ is not a
     square modulo $8$.
-  \end{proof}
-
-  \santi{Sun Woo, according to Lemma 6.3 in the Overleaf document, we should
-    have that for a twist minimal triple $(a,b,c)$, the only possibilities for
-    $\twerr(a,b,c)$ are $10, 5, 2, 1$. So far, I agree that when $(a,b,c)$ is
-    not $5$-exceptional, then $\twerr(a,b,c) = 2, 1$. But after some struggle,
-    I found an exceptional twist minimal triple with twist error equal to $25$:
-    take $(a,b,c) = (-527, -336, 25)$. From the examples I have computed, $25$
-    seems to be the greatest power of $5$ dividing $\twerr(a,b,c)$. Can we show
-    that $5^3$ does not divide $\twerr$?}
-
-\spark{Thank you very much for pointing out the mistake, Santi. The two lemmas below outlines the classification of 5-exceptional twist-minimal triples. Maybe Lemma 7.6 is redundant, as Lemma 7.7 already provides the proof that $\twerr(a,b,c)$ is not divisible by $5^4$.}
+\end{proof}
 
 \begin{lemma} \label{lemma:625-nmid-twerr}
     Let (a,b,c) be a twist-minimal triple. Then $\twerr(a,b,c)$ is not divisible by $5^4$.
@@ -1091,83 +1059,10 @@ Once more, it follows that $123a' \equiv -114b' \md p$, and
     This implies that $5 \mid c$, a contradiction.
 \end{proof}
 
-\begin{lemma}
-    Let (a,b,c) be a 5-exceptional twist-minimal triple. Let $l$ be the valuation of $\twerr(a,b,c)$ with respect to $5$. Note that $1 \leq l \leq 3$ by Lemma \ref{lemma:625-nmid-twerr}. Let $d \in \mathbb{Z}[i]$ be any Gaussian integer coprime to $(1+2i)$ and $(1-2i)$ whose prime factors are all not equivalent to 3 modulo 4 and whose norm is an integral $4$-th power. 
-    \begin{itemize}
-        \item Suppose $l = 1$. Then the twist minimal triple $(a,b,c)$ is of the form
-        \begin{equation}
-            (a,b,c) = \begin{cases} \left(\Re(5 \cdot (1-2i)^2 \cdot d), \Im(5 \cdot (1-2i)^2 \cdot d), 5 \cdot \sqrt{d \overline{d}} \right) \\
-            \left(\Re((1-2i)^4 \cdot d), \Im((1-2i)^4 \cdot d), 5 \cdot \sqrt[4]{d \overline{d}} \right)
-            \end{cases},
-        \end{equation}
-        \item Suppose $l = 2$. Then the twist minimal triple $(a,b,c)$ is of the form
-        \begin{equation}
-            (a,b,c) = \left(\Re((1-2i)^{4k} \cdot d), \Im((1-2i)^{4k} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
-        \end{equation}
-        for any positive integer $k \geq 2$.
-        \item Suppose $l = 3$. Then the twist minimal triple $(a,b,c)$ is of the form
-        \begin{equation}
-            (a,b,c) = \left(\Re(5 \cdot (1-2i)^{4k-2} \cdot d), \Im(5 \cdot (1-2i)^{4k-2} \cdot d), 5^k \cdot \sqrt[4]{d \overline{d}} \right)
-        \end{equation}
-        for any positive integer $k \geq 2$.
-    \end{itemize}
-\end{lemma}
-\begin{proof}
-    We recall the parts of \Cref{eq:A,eq:B} excluding the terms containing $c^2$.
-    \begin{align*}
-        &123a + 114b = 3(41a + 38b) \\
-        &2502a + 261b = 9(278a + 29b)
-    \end{align*}
-    Observe that
-    \begin{align*}
-        (1+2i)^5 &= 41 - 38i\\
-        (1+2i)^7 &= 29 + 278i
-    \end{align*}
-    Multiply the above equations by $a+bi$ to obtain
-    \begin{align*}
-        (1+2i)^5 \cdot (a+bi) &= (41-38i) \cdot (a+bi) = (41a + 38b) + i(41b - 38a) \\
-        (1+2i)^7 \cdot (a+bi) &= (29+278i) \cdot (a+bi) = (29a -278b) + i(278a + 29b)
-    \end{align*}
-    We note that the valuations of $41a + 38b$ and $41b-38a$ with respect to $5$ are equal. To see this, we take norm on both sides of the equation to obtain
-    \begin{equation*}
-        5^5 \cdot c^4 = 5^5 \cdot (a^2 + b^2) = (41a + 38b)^2 + (41b-38a)^2
-    \end{equation*}
-    If $41a + 38b$ and $41b-38a$ have different valuations with respect to $5$, then the valuation of the RHS of the equation is even, which contradicts the fact that the valuation of the LHS of the equation is odd. The analogous reasoning shows that the valuation of $29a - 278b$ ad $278a + 29b$ with respect to $5$ are identical.
-    
-    We obtain that the valuations of $41a + 38b$ and $278a + 29b$ with respect to $5$ are determined by the valuation of $a+bi$ with respect to $1-2i$. Because $(a,b,c)$ is a twist-minimal triple, $a^2 + b^2 = c^4$, and $5 \mid c$ from \ref{lemma:exceptional-triples}, the 5-exceptional triples $(a,b,c)$ satisfy
-    \begin{align*}
-        a+bi = \begin{cases}
-            (1-2i)^{4k} \cdot d \\
-            5 \cdot (1-2i)^{4k-2} \cdot d
-        \end{cases}
-    \end{align*}
-    for any positive integer $k \geq 1$ and $d \in \mathbb{Z}[i]$ an element that does not lie in the ideals $(1+2i)$ and $(1-2i)$ such that $d$ is not divisible by primes equivalent to $3$ mod $4$ and whose norm is an integral $4$-th power. We use the abbreviation $v_5(\cdot)$ to denote the valuation of an element $\cdot$ with respect to $5$. Then substituting the above expression to \Cref{eq:A} gives
-    \begin{equation} \label{eq:5-val-A}
-        v_5(A(a,b,c)) = \begin{cases}
-            3 &\text{ if } a+bi = 5 \cdot (1-2i)^2 \cdot d \\
-            4 &\text{ if } a+bi = (1-2i)^4 \cdot d \\
-            5 &\text{ if } a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
-            6 &\text{ if } a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
-        \end{cases}
-    \end{equation}
-    Likewise, substituting the above expression to \Cref{eq:B} gives
-    \begin{equation} \label{eq:5-val-B}
-        v_5(B(a,b,c)) = \begin{cases}
-            4 &\text{ if } a+bi = 5 \cdot (1-2i)^2 \cdot d \\
-            5 &\text{ if } a+bi = (1-2i)^4 \cdot d \\
-            k + 7 &\text{ if } a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
-            k + 7 &\text{ if } a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
-        \end{cases}
-    \end{equation}
-    Combining \Cref{eq:5-val-A,eq:5-val-B}, we obtain
-    \begin{align*}
-        v_5(\twerr(a,b,c)) = 1 &\iff a+bi = 5 \cdot (1-2i)^2 \cdot d \text{ or } = (1-2i)^4 \cdot d \\
-        v_5(\twerr(a,b,c)) = 2 &\iff a+bi = (1-2i)^{4k} \cdot d \text{ for } k \geq 2 \\
-        v_5(\twerr(a,b,c)) = 3 &\iff a+bi = 5 \cdot (1-2i)^{4k-2} \cdot d \text{ for } k \geq 2
-    \end{align*}
-\end{proof}
 
-\spark{For example, suppose that $d=1$. Then Lemma 7.7 shows that if $c = 5$, then there are $8$ twist-minimal triples such that $5 \mid \twerr(a,b,c)$ and $25 \nmid \twerr(a,b,c)$. These are: 
+\spark{For example, suppose that $d=1$. Then Lemma 7.7 shows that if $c = 5$,
+  then there are $8$ twist-minimal triples such that $5 \mid \twerr(a,b,c)$ and
+  $25 \nmid \twerr(a,b,c)$. These are:
 \begin{equation*}
     a+bi \in \{-15-20i, 20-15i, 15 + 20i, -20+15i, -7 + 24i, -24-7i, 7 - 24i, 24 + 7i\}
 \end{equation*}
@@ -1210,12 +1105,13 @@ This agrees with the result of the updated magma code commented below.
 \begin{table}[ht]
     \begin{tabular}{|c|c|}
       \hline
-      $\ord_5(\twerr(a,b,c))$ & $\beta$                 \\ \hline
-      $1$   & $5(1 - 2i)^2, (1 - 2i)^4$              \\ \hline
-      $2$   & $(1 - 2i)^{4k}$, where $k \geq 2$                         \\ \hline
-      $3$   & $5(1 - 2i)^{4k-2}$, where $k \geq 2$                      \\ \hline
+      $\ord_5(\twerr(a,b,c))$ & $\beta$               \\ \hline
+      $1$   & $(1 - 2i)^4$                            \\ \hline
+      $1$   & $5(1 - 2i)^2$                           \\ \hline
+      $2$   & $(1 - 2i)^{4k}$                         \\ \hline
+      $3$   & $5(1 - 2i)^{4k-2}$                      \\ \hline
     \end{tabular}
-    \caption{Characterization of $5$-exceptional triples.}
+    \caption{Characterization of $5$-exceptional triples. ($k \geq 2$). }
     \label{table:characterization-5-exceptional-triples}
 \end{table}
 \begin{proof}
@@ -1223,10 +1119,12 @@ This agrees with the result of the updated magma code commented below.
   Moreover, we can write $\alpha = \beta\cdot \delta$ so that $\delta$ is
   coprime to both $1\pm 2i$. This implies that $\beta \in \brk{(1\pm 2i)^{4k},
     5(1\pm 2i)^{4k-2}}$. On the other hand, observe that
-  \begin{align*}
-        (1+2i)^5  \alpha &= (41-38i)(a+bi) = (41a + 38b) + i(41b - 38a), \\
+  \begin{align}
+   \label{eq:(1+2i)^5}
+    (1+2i)^5  \alpha &= (41-38i)(a+bi) = (41a + 38b) + i(41b - 38a), \\
+    \label{eq:(1+2i)^7}
         (1+2i)^7  \alpha &= (29+278i)(a+bi) = (29a -278b) + i(278a + 29b).
-  \end{align*}
+  \end{align}
   From these equations we conclude that\footnote{This can be seen by taking the
     norm and comparing the parity of $\ord_5(\cdot)$ on each side of the
     equations.}
@@ -1234,32 +1132,74 @@ This agrees with the result of the updated magma code commented below.
     \ord_5(41a + 38b) &= \ord_5(41b - 38a) = \ord_5((1+2i)^5\alpha), \\
     \ord_5(278a + 29b) &= \ord_5(29a -278b) = \ord_5((1+2i)^7\alpha).
   \end{align*}
-  Taking $\ord_5(\cdot)$ on \Cref{eq:A,eq:B} we obtain
+  Furthermore, since $5$ divides $A$ and $B$, we must have that
+  $\beta \in \brk{(1- 2i)^{4k}, 5(1-2i)^{4k-2}}$. Taking $\ord_5(\cdot)$ on
+  \Cref{eq:A,eq:B} we obtain
   \begin{align}
     \label{eq:ord-5-A}
     \ord_5(A(a,b,c)) &\geq \min\brk{\ord_5((1+2i)^5\beta), 3+2k}, \\
     \label{eq:ord-5-B}
     \ord_5(B(a,b,c)) &\geq k + \min\brk{\ord_5((1+2i)^7\beta), 4+2k},
   \end{align}
-  with equality when the entries of the minimum functions are distinct.
+  with equality when the entries of the minimum functions are distinct. From
+  this, we are able to calculate the $5$-adic valuation of the twist error of
+  the triple $\Fermat(\alpha) = (a,b,c)$. The values are sumarized in
+  \Cref{table:beta-ord-5}.
 
   \begin{table}[ht]
     \begin{tabular}{|c|c|c|c|}
       \hline
-      $\beta$          & $\ord_5(A)$ & $\ord_5(B)$ & $\ord_5(\twerr(a,b,c))$ \\ \hline
-      $(1+2i)^4$       & 0           & 1           & 0                        \\ \hline
-      $(1-2i)^4$       & 4           & 5           & 1                        \\ \hline
-      $5(1+2i)^2$      & 1           & 1           & 0                        \\ \hline
-      $5(1-2i)^2$      & 3           & 4           & 1                        \\ \hline
-      $(1+2i)^{4k}$, where $k \geq 2$   & 0           & $k$           & 0                        \\ \hline
-      $(1-2i)^{4k}$, where $k \geq 2$   & 5           & $k+7$         & 2                        \\ \hline
-      $5(1+2i)^{4k-2}$, where $k \geq 2$ & 1          & $k+1$         & 0                        \\ \hline
-      $5(1-2i)^{4k-2}$, where $k \geq 2$ & 6          & $k+7$         & 3                        \\ \hline
+      $\beta$          & $\ord_5(A)$ & $\ord_5(B)$ & $\ord_5(\twerr(a,b,c))$ \\\hline
+      $(1-2i)^4$       & 4           & 5           & 1                       \\ \hline
+      $5(1-2i)^2$      & 3           & 4           & 1                       \\ \hline
+      $(1-2i)^{4k}$    & 5           & $k+7$       & 2                       \\ \hline
+      $5(1-2i)^{4k-2}$ & 6           & $k+7$       & 3                       \\ \hline
     \end{tabular}
+    \caption{Possible $\beta$ factors of $5$-exceptional triples.}
+  \label{table:beta-ord-5}
   \end{table}
 \end{proof}
   
-\spark{Here's a question we would have to figure out. Based on the two previous lemmas, the possible values of $\twerr(a,b,c)$ are: $1, 2, 5, 10, 25, 50, 125, 250$. We would need to verify whether the twist-minimal triples with such values of $\twerr(a,b,c)$ give rise to non-isomorphic families of elliptic curves, up to quadratic twists over $\mathbb{Q}$.}
+\spark{Here's a question we would have to figure out. Based on the two previous
+  lemmas, the possible values of $\twerr(a,b,c)$ are:
+  $1, 2, 5, 10, 25, 50, 125, 250$. We would need to verify whether the
+  twist-minimal triples with such values of $\twerr(a,b,c)$ give rise to
+  non-isomorphic families of elliptic curves, up to quadratic twists over
+  $\mathbb{Q}$.} \santi{I am not sure I understan your comment. Let me know if
+  what I wrote after this possibly useless lemma is related to it.}
+\begin{lemma}
+  Let $(a,b,c)$ be a Fermat triple. Then,
+  \begin{equation}
+    \label{eq:ineq}
+    H(a,b,c) \leq 2^6\cdot 3^3\cdot 5^8\cdot 13^2 \cdot c^6.
+  \end{equation}
+\end{lemma}
+\begin{proof}
+  From the triangle inequality $\Re(z), \Im(z) \leq \sqrt{z\ol{z}}$ applied to
+  \Cref{eq:(1+2i)^5,eq:(1+2i)^7}, we obtain
+  \begin{align*}
+    |123a+114b+125c^2| &\leq 4\cdot 5^3\cdot c^2, \\
+    |2502a+261b+2500c^2| &\leq 13\cdot 5^4\cdot c^2.
+  \end{align*}
+  Thus, $H(a,b,c)$ is upper bounded by
+  $2^5\cdot 3^3(2c^2)(13\cdot 5^4\cdot c^2)^2$.
+\end{proof}
+
+From \Cref{thm:Eabc} that a twist-minimal Gaussian integer $\alpha = a+bi$
+different from $-1$ and $-585+220i$ corresponds to a $\Qbar$-isomorphism class of a
+rational point $(E,\phi) \in Y_0(5)(\QQ)$, which is represented by the pair
+$(E_{a,b,c},\phi_{a,c,b})$ defined in \Cref{sec:triples-and-5isog}. It follows
+that $N_5^{\tw}(T)$ counts the number of twist-minimal Gaussian integers
+$\alpha \in \ZZ[i]-\brk{-1,585+220i}$ such that $\twht(E_\alpha) \leq T$. We
+can partition this count according to the value of $\twerr(\alpha) \in
+\brk{1,2,5,10,25,50,125,250}$ to obtain
+\begin{equation*}
+  N_5^{\tw}(T) = \sum_{r =0}^3[N(T; \twerr = 5^r) + N(T; \twerr
+  = 2\cdot 5^r)],
+\end{equation*}
+where $N(T;\twerr=n)$ counts the number of twist-minimal Gaussian integers
+$\alpha \in \ZZ[i]-\brk{-1,585+220i}$ such that $\twerr(\alpha) = n$ and 
+$\twht(E_\alpha) = \max(4|A(\alpha)|^3,27|B(\alpha)|^2)/n^6 \leq T$. 
 
 
 \clearpage
