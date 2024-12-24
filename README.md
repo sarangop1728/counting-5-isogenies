@@ -1,5 +1,5 @@
-# sticky
+# Counting 5-isogenies of elliptic curves over $\mathbb{Q}$
 
-Repository for tracking the code related to 5-isogenies over elliptic curves over $\mathbb{Q}$ and counting points on the generalized Fermat equation of signature 
-(2,2,4).
+Repository for the code attached to the paper *Counting 5-isogenies of elliptic curves
+over $\mathbb{Q}$*.
 
